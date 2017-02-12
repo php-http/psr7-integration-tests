@@ -11,7 +11,7 @@ php:
 
 env:
     global:
-        - TEST_COMMAND="composer test"
+        - TEST_COMMAND="./vendor/bin/phpunit"
 
 branches:
     except:
@@ -24,4 +24,6 @@ install:
     - travis_retry composer update --prefer-dist --no-interaction
 
 script:
-    - $TEST_COMMAND
+    - $TEST_COMMAND --testsuite Guzzle
+    - $TEST_COMMAND --testsuite Zend
+    - $TEST_COMMAND --testsuite Slim
