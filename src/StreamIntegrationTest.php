@@ -100,6 +100,7 @@ abstract class StreamIntegrationTest extends BaseTest
 
         $this->assertEquals(3, $stream->getSize());
     }
+
     public function testTell()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
