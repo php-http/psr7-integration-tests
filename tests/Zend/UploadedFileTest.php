@@ -10,7 +10,8 @@ class UploadedFileTest extends UploadedFileIntegrationTest
 {
     public function createSubject()
     {
-        $stream = new Stream('Foobar');
+        $stream = new Stream('php://memory', 'rw');
+        $stream->write('foobar');
 
         return new UploadedFile($stream, $stream->getSize(), UPLOAD_ERR_OK);
     }

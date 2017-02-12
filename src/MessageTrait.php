@@ -43,7 +43,6 @@ trait MessageTrait
         $message = $message->withAddedHeader('content-type', 'text/plain');
         $headers = $message->getHeaders();
 
-        $this->assertCount(1, $headers);
         $this->assertTrue(isset($headers['content-type']));
         $this->assertCount(2, $headers['content-type']);
     }
@@ -91,9 +90,9 @@ trait MessageTrait
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
         $message = $message->withAddedHeader('content-type', 'text/plain');
-        $this->assertEquals('text/html, text/plain', $message->getHeaderLine('content-type'));
-        $this->assertEquals('text/html, text/plain', $message->getHeaderLine('Content-Type'));
-        $this->assertEquals('text/html, text/plain', $message->getHeaderLine('CONTENT-TYPE'));
+        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('content-type'));
+        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
+        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('CONTENT-TYPE'));
 
         $this->assertEquals('', $message->getHeaderLine('Bar'));
     }
@@ -128,8 +127,8 @@ trait MessageTrait
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
         $message = $message->withAddedHeader('CONTENT-type', 'text/plain');
-        $this->assertEquals('text/html, text/plain', $message->getHeaderLine('content-type'));
-        $this->assertEquals('text/html, text/plain', $message->getHeaderLine('Content-Type'));
+        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('content-type'));
+        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
     }
 
     public function testWithoutHeader()
@@ -141,17 +140,17 @@ trait MessageTrait
         }
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
-        $message = $message->withAddedHeader('Age', 0);
+        $message = $message->withAddedHeader('Age', '0');
         $message = $message->withAddedHeader('X-Foo', 'bar');
 
         $headers = $message->getHeaders();
-        $this->assertCount(3, $headers);
+        $headerCount = count($headers);
         $this->assertTrue(isset($headers['Age']));
 
         // Remove a header
         $message = $message->withoutHeader('age');
         $headers = $message->getHeaders();
-        $this->assertCount(2, $headers);
+        $this->assertCount($headerCount-1, $headers);
         $this->assertFalse(isset($headers['Age']));
     }
 

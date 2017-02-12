@@ -9,6 +9,6 @@ class RequestTest extends RequestIntegrationTest
 {
     public function createSubject()
     {
-        return new Request();
+        return new Request('/', 'GET');
     }
 }
