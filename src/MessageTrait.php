@@ -150,7 +150,7 @@ trait MessageTrait
         // Remove a header
         $message = $message->withoutHeader('age');
         $headers = $message->getHeaders();
-        $this->assertCount($headerCount-1, $headers);
+        $this->assertCount($headerCount - 1, $headers);
         $this->assertFalse(isset($headers['Age']));
     }
 
