@@ -128,6 +128,7 @@ abstract class UriIntegrationTest extends BaseTest
 
         // TODO
     }
+
     public function testQuery()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -138,6 +139,7 @@ abstract class UriIntegrationTest extends BaseTest
 
         // TODO
     }
+
     public function testFragment()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
