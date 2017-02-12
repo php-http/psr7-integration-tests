@@ -2,7 +2,6 @@
 
 namespace Http\Psr7Test;
 
-use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 
@@ -81,13 +80,13 @@ abstract class RequestIntegrationTest extends BaseTest
 
         $this->assertInstanceOf(UriInterface::class, $this->request->getUri());
 
-        $uri = new Uri('http://www.foo.com/bar');
+        $uri = $this->buildUri('http://www.foo.com/bar');
         $request = $this->request->withUri($uri);
         $this->assertNotSameObject($this->request, $request);
         $this->assertEquals('www.foo.com', $request->getHeaderLine('host'));
         $this->assertEquals('http://www.foo.com/bar', (string) $request->getUri());
 
-        $request = $request->withUri(new Uri('/foobar'));
+        $request = $request->withUri($this->buildUri('/foobar'));
         $this->assertNotSameObject($this->request, $request);
         $this->assertEquals('www.foo.com', $request->getHeaderLine('host'), 'If the URI does not contain a host component, any pre-existing Host header MUST be carried over to the returned request.');
         $this->assertEquals('/foobar', (string) $request->getUri());
@@ -101,7 +100,7 @@ abstract class RequestIntegrationTest extends BaseTest
             return;
         }
 
-        $request = $this->request->withUri(new Uri('http://www.foo.com/bar'), true);
+        $request = $this->request->withUri($this->buildUri('http://www.foo.com/bar'), true);
         $this->assertEquals('www.foo.com', $request->getHeaderLine('host'));
     }
 
@@ -114,7 +113,7 @@ abstract class RequestIntegrationTest extends BaseTest
         }
 
         $host = $this->request->getHeaderLine('host');
-        $request = $this->request->withUri(new Uri('/bar'), true);
+        $request = $this->request->withUri($this->buildUri('/bar'), true);
         $this->assertEquals($host, $request->getHeaderLine('host'));
     }
 
@@ -126,10 +125,10 @@ abstract class RequestIntegrationTest extends BaseTest
             return;
         }
 
-        $request = $this->request->withUri(new Uri('http://www.foo.com/bar'));
+        $request = $this->request->withUri($this->buildUri('http://www.foo.com/bar'));
         $host = $request->getHeaderLine('host');
 
-        $request2 = $request->withUri(new Uri('http://www.bar.com/foo'), true);
+        $request2 = $request->withUri($this->buildUri('http://www.bar.com/foo'), true);
         $this->assertEquals($host, $request2->getHeaderLine('host'));
     }
 }

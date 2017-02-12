@@ -34,4 +34,9 @@
       </exclude>
     </whitelist>
   </filter>
+
+    <php>
+        <env name="URI_FACTORY" value=""/>
+        <env name="STREAM_FACTORY" value=""/>
+    </php>
 </phpunit>
