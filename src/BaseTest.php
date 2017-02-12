@@ -20,15 +20,14 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     protected function buildUri($uri)
     {
-        $factory = getenv('URI_FACTORY');
-
-        if (!empty($factory)) {
-            $factoryClass = new $factory();
-            if (!$factoryClass instanceof \Http\Message\UriFactory) {
-                throw new \RuntimeException('Environment variable "URI_FACTORY" must be a reference to a Http\Message\UriFactory');
+        if (!defined('URI_FACTORY')) {
+            $factoryClass = URI_FACTORY;
+            $factory = new $factoryClass();
+            if (!$factory instanceof \Http\Message\UriFactory) {
+                throw new \RuntimeException('Constant "URI_FACTORY" must be a reference to a Http\Message\UriFactory');
             }
 
-            return $factoryClass->createUri($uri);
+            return $factory->createUri($uri);
         }
 
         if (class_exists(GuzzleUri::class)) {
@@ -48,15 +47,14 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     protected function buildStream($data)
     {
-        $factory = getenv('STREAM_FACTORY');
-
-        if (!empty($factory)) {
-            $factoryClass = new $factory();
-            if (!$factoryClass instanceof \Http\Message\StreamFactory) {
-                throw new \RuntimeException('Environment variable "STREAM_FACTORY" must be a reference to a Http\Message\StreamFactory');
+        if (!defined('STREAM_FACTORY')) {
+            $factoryClass = STREAM_FACTORY;
+            $factory = new $factoryClass();
+            if (!$factory instanceof \Http\Message\StreamFactory) {
+                throw new \RuntimeException('Constant "STREAM_FACTORY" must be a reference to a Http\Message\StreamFactory');
             }
 
-            return $factoryClass->createStream($data);
+            return $factory->createStream($data);
         }
 
         if (class_exists(GuzzleStream::class)) {

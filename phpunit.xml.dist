@@ -36,7 +36,7 @@
   </filter>
 
     <php>
-        <env name="URI_FACTORY" value=""/>
-        <env name="STREAM_FACTORY" value=""/>
+        <const name="URI_FACTORY" value=""/>
+        <const name="STREAM_FACTORY" value=""/>
     </php>
 </phpunit>
