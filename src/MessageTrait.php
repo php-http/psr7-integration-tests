@@ -163,7 +163,7 @@ trait MessageTrait
         }
 
         $initialMessage = $this->getMessage();
-        $stream = \GuzzleHttp\Psr7\stream_for('foo');
+        $stream = $this->buildStream('foo');
         $message = $initialMessage->withBody($stream);
         $this->assertNotSameObject($initialMessage, $message);
 
