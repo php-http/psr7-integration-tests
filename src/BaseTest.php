@@ -20,7 +20,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     protected function buildUri($uri)
     {
-        if (!defined('URI_FACTORY')) {
+        if (defined('URI_FACTORY')) {
             $factoryClass = URI_FACTORY;
             $factory = new $factoryClass();
             if (!$factory instanceof \Http\Message\UriFactory) {
@@ -47,7 +47,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     protected function buildStream($data)
     {
-        if (!defined('STREAM_FACTORY')) {
+        if (defined('STREAM_FACTORY')) {
             $factoryClass = STREAM_FACTORY;
             $factory = new $factoryClass();
             if (!$factory instanceof \Http\Message\StreamFactory) {
