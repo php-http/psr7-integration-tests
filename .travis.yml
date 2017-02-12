@@ -18,7 +18,7 @@ branches:
         - /^analysis-.*$/
 
 before_install:
-    - iphpenv config-rm xdebug.ini || true; fi
+    - iphpenv config-rm xdebug.ini || true
 
 install:
     - travis_retry composer update --prefer-dist --no-interaction
