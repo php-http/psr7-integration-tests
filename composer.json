@@ -18,7 +18,8 @@
         "phpunit/phpunit": "^4.8 || ^5.0",
         "zendframework/zend-diactoros": "^1.0",
         "guzzlehttp/psr7": "^1.0",
-        "slim/slim": "^3.0"
+        "slim/slim": "^3.0",
+        "nyholm/psr7": "dev-master"
     },
     "autoload": {
         "psr-4": {

@@ -23,6 +23,10 @@
     <testsuite name="Zend">
         <directory>./tests/Zend/</directory>
     </testsuite>
+
+    <testsuite name="Nyholm">
+        <directory>./vendor/nyholm/psr7/tests/Integration/</directory>
+    </testsuite>
   </testsuites>
 
   <filter>
@@ -34,9 +38,4 @@
       </exclude>
     </whitelist>
   </filter>
-
-    <php>
-        <const name="URI_FACTORY" value=""/>
-        <const name="STREAM_FACTORY" value=""/>
-    </php>
 </phpunit>
