@@ -12,13 +12,16 @@ php:
 env:
     global:
         - TEST_COMMAND="./vendor/bin/phpunit"
-    - SUITE="Guzzle"
-    - SUITE="Zend"
-    - SUITE="Slim"
-    - SUITE="Nyholm"
+    matrix:
+        - SUITE="Guzzle"
+        - SUITE="Zend"
+        - SUITE="Slim"
+        - SUITE="Nyholm"
+
 branches:
     except:
         - /^analysis-.*$/
+        - /^patch-.*$/
 
 before_install:
     - iphpenv config-rm xdebug.ini || true
