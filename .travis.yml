@@ -12,7 +12,9 @@ php:
 env:
     global:
         - TEST_COMMAND="./vendor/bin/phpunit"
-
+    - SUITE="Guzzle"
+    - SUITE="Zend"
+    - SUITE="Slim"
 branches:
     except:
         - /^analysis-.*$/
@@ -24,6 +26,4 @@ install:
     - travis_retry composer update --prefer-dist --no-interaction
 
 script:
-    - $TEST_COMMAND --testsuite Guzzle
-    - $TEST_COMMAND --testsuite Zend
-    - $TEST_COMMAND --testsuite Slim
+    - $TEST_COMMAND --testsuite $SUITE
