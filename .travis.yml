@@ -15,6 +15,7 @@ env:
     - SUITE="Guzzle"
     - SUITE="Zend"
     - SUITE="Slim"
+    - SUITE="Nyholm"
 branches:
     except:
         - /^analysis-.*$/
