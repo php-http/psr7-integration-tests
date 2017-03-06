@@ -63,7 +63,6 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         $this->assertArrayHasKey('foo', $new->getCookieParams());
     }
 
-
     public function testGetQueryParams()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -99,5 +98,4 @@ abstract class ServerRequestIntegrationTest extends BaseTest
 
         // TODO write me
     }
-
 }
