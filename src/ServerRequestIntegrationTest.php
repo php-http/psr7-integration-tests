@@ -6,8 +6,6 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * TODO Write me.
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 abstract class ServerRequestIntegrationTest extends BaseTest
@@ -32,14 +30,74 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         $this->serverRequest = $this->createSubject();
     }
 
-    public function testNothing()
+    public function testGetServerParams()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
-        $this->assertTrue(true);
+        $this->assertEquals($_SERVER, $this->serverRequest->getServerParams());
     }
+
+    public function testGetCookieParams()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $this->assertEquals($_COOKIE, $this->serverRequest->getCookieParams());
+    }
+
+    public function testWithCookieParams()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $orgCookie = $_COOKIE;
+        $new = $this->serverRequest->withCookieParams(['foo'=>'bar']);
+
+        $this->assertEquals($orgCookie, $this->serverRequest->getCookieParams(), 'Super global $_COOKIE MUST NOT change.');
+        $this->assertNotEquals($orgCookie, $new->getCookieParams());
+
+        $this->assertArrayHasKey('foo', $new->getCookieParams());
+    }
+
+
+    public function testGetQueryParams()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        // TODO write me
+    }
+
+    public function testGetUploadedFiles()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        // TODO write me
+    }
+
+    public function testGetParsedBody()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        // TODO write me
+    }
+
+    public function testGetAttributes()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        // TODO write me
+    }
+
 }

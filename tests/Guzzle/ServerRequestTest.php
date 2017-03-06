@@ -9,6 +9,6 @@ class ServerRequestTest extends ServerRequestIntegrationTest
 {
     public function createSubject()
     {
-        return new ServerRequest('GET', '/');
+        return new ServerRequest('GET', '/', [], null, '1.1', $_SERVER);
     }
 }
