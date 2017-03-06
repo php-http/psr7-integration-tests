@@ -12,6 +12,6 @@ class ServerRequestTest extends ServerRequestIntegrationTest
 {
     public function createSubject()
     {
-        return new Request('GET', new Uri('http', 'foo.com'), new Headers([]), [], [], new Body(fopen('php://temp', 'r+')));
+        return new Request('GET', new Uri('http', 'foo.com'), new Headers([]), $_COOKIE, $_SERVER, new Body(fopen('php://temp', 'r+')));
     }
 }
