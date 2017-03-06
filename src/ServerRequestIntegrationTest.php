@@ -55,7 +55,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         }
 
         $orgCookie = $_COOKIE;
-        $new = $this->serverRequest->withCookieParams(['foo'=>'bar']);
+        $new = $this->serverRequest->withCookieParams(['foo' => 'bar']);
 
         $this->assertEquals($orgCookie, $this->serverRequest->getCookieParams(), 'Super global $_COOKIE MUST NOT change.');
         $this->assertNotEquals($orgCookie, $new->getCookieParams());
