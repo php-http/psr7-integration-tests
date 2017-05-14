@@ -69,7 +69,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $new = $this->serverRequest->withQueryParams(['foo'=>'bar']);
+        $new = $this->serverRequest->withQueryParams(['foo' => 'bar']);
         $this->assertEmpty($this->serverRequest->getQueryParams(), 'withQueryParams MUST be immutable');
 
         $this->assertArrayHasKey('foo', $new->getQueryParams());
@@ -100,7 +100,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
             4711,
             null,
             new \stdClass(),
-            ['foo'=>'bar', 'baz'],
+            ['foo' => 'bar', 'baz'],
         ];
 
         foreach ($data as $item) {
