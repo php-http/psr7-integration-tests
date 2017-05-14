@@ -131,6 +131,46 @@ trait MessageTrait
         $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
     }
 
+    /**
+     * Make sure we maintain headers when we add array values
+     */
+    public function testWithAddedHeaderArrayValue()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+
+            return;
+        }
+
+        $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
+        $message = $message->withAddedHeader('content-type', ['text/plain', 'application/json']);
+
+        $headerLine = $message->getHeaderLine('content-type');
+        $this->assertRegExp('|text/html|', $headerLine);
+        $this->assertRegExp('|text/plain|', $headerLine);
+        $this->assertRegExp('|application/json|', $headerLine);
+    }
+
+    /**
+     * Make sure we maintain headers when we add array values with keys
+     */
+    public function testWithAddedHeaderArrayValueAndKeys()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+
+            return;
+        }
+
+        $message = $this->getMessage()->withAddedHeader('content-type', ['foo'=>'text/html']);
+        $message = $message->withAddedHeader('content-type', ['foo'=>'text/plain', 'bar'=>'application/json']);
+
+        $headerLine = $message->getHeaderLine('content-type');
+        $this->assertRegExp('|text/html|', $headerLine);
+        $this->assertRegExp('|text/plain|', $headerLine);
+        $this->assertRegExp('|application/json|', $headerLine);
+    }
+
     public function testWithoutHeader()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
