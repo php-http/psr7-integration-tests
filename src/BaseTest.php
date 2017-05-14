@@ -3,10 +3,12 @@
 namespace Http\Psr7Test;
 
 use GuzzleHttp\Psr7\Stream as GuzzleStream;
+use GuzzleHttp\Psr7\UploadedFile as GuzzleUploadedFile;
 use GuzzleHttp\Psr7\Uri as GuzzleUri;
 use Slim\Http\Uri as SlimUri;
 use Zend\Diactoros\Stream as ZendStream;
 use Zend\Diactoros\Uri as ZendUri;
+use Zend\Diactoros\UploadedFile as ZendUploadedFile;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -63,6 +65,29 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
         if (class_exists(ZendStream::class)) {
             return new ZendStream($data);
+        }
+
+        throw new \RuntimeException('Could not create Stream. Check your config');
+    }
+
+    protected function buildUploadableFile($data)
+    {
+        if (defined('UPLOADED_FILE_FACTORY')) {
+            $factoryClass = UPLOADED_FILE_FACTORY;
+            $factory = new $factoryClass();
+            if (!$factory instanceof \Interop\Http\Factory\UploadedFileFactoryInterface) {
+                throw new \RuntimeException('Constant "UPLOADED_FILE_FACTORY" must be a reference to a Interop\Http\Factory\UploadedFileFactoryInterface');
+            }
+
+            return $factory->createUploadedFile($data);
+        }
+
+        if (class_exists(GuzzleUploadedFile::class)) {
+            return new GuzzleUploadedFile($data, sizeof($data), 0);
+        }
+
+        if (class_exists(ZendUploadedFile::class)) {
+            return new ZendUploadedFile($data, sizeof($data), 0);
         }
 
         throw new \RuntimeException('Could not create Stream. Check your config');
