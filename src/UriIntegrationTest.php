@@ -25,8 +25,6 @@ abstract class UriIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $uri = $this->createUri('/');
@@ -44,8 +42,6 @@ abstract class UriIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $uri = $this->createUri('/');
@@ -65,8 +61,6 @@ abstract class UriIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $uri = $this->createUri('/');
@@ -83,8 +77,6 @@ abstract class UriIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $uri = $this->createUri('/');
@@ -101,8 +93,6 @@ abstract class UriIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $uri = $this->createUri('http://www.foo.com/');
@@ -122,8 +112,6 @@ abstract class UriIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         // TODO
@@ -133,8 +121,6 @@ abstract class UriIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         // TODO
@@ -144,8 +130,6 @@ abstract class UriIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         // TODO

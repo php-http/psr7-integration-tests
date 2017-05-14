@@ -36,8 +36,6 @@ abstract class UploadedFileIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $this->assertTrue(true);

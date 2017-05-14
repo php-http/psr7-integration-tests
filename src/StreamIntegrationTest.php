@@ -25,8 +25,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $url = 'https://raw.githubusercontent.com/php-http/multipart-stream-builder/master/tests/Resources/httplug.png';
@@ -42,8 +40,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -59,8 +55,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -75,8 +69,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -90,8 +82,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -105,8 +95,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -126,8 +114,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -145,8 +131,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -164,8 +148,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -183,8 +165,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -202,8 +182,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -218,8 +196,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -237,8 +213,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $url = 'https://raw.githubusercontent.com/php-http/multipart-stream-builder/master/tests/Resources/httplug.png';
@@ -251,8 +225,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -268,8 +240,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
@@ -288,8 +258,6 @@ abstract class StreamIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $resource = fopen('php://memory', 'rw');
