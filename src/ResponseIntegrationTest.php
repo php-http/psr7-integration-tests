@@ -41,8 +41,6 @@ abstract class ResponseIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $response = $this->response->withStatus(204);
@@ -54,8 +52,6 @@ abstract class ResponseIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $response = $this->response->withStatus(204, 'Foobar');

@@ -20,8 +20,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $initialMessage = $this->getMessage();
@@ -35,8 +33,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
@@ -51,8 +47,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
@@ -66,8 +60,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
@@ -84,8 +76,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
@@ -101,8 +91,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $initialMessage = $this->getMessage();
@@ -121,8 +109,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
@@ -135,8 +121,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
@@ -158,8 +142,6 @@ trait MessageTrait
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $initialMessage = $this->getMessage();

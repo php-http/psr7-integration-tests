@@ -41,8 +41,6 @@ abstract class RequestIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $this->assertEquals('/', $this->request->getRequestTarget());
@@ -56,8 +54,6 @@ abstract class RequestIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $this->assertEquals('GET', $this->request->getMethod());
@@ -74,8 +70,6 @@ abstract class RequestIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $this->assertInstanceOf(UriInterface::class, $this->request->getUri());
@@ -96,8 +90,6 @@ abstract class RequestIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $request = $this->request->withUri($this->buildUri('http://www.foo.com/bar'), true);
@@ -108,8 +100,6 @@ abstract class RequestIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $host = $this->request->getHeaderLine('host');
@@ -121,8 +111,6 @@ abstract class RequestIntegrationTest extends BaseTest
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-
-            return;
         }
 
         $request = $this->request->withUri($this->buildUri('http://www.foo.com/bar'));
