@@ -69,7 +69,10 @@ abstract class ServerRequestIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        // TODO write me
+        $new = $this->serverRequest->withQueryParams(['foo' => 'bar']);
+        $this->assertEmpty($this->serverRequest->getQueryParams(), 'withQueryParams MUST be immutable');
+
+        $this->assertArrayHasKey('foo', $new->getQueryParams());
     }
 
     public function testGetUploadedFiles()
@@ -78,7 +81,13 @@ abstract class ServerRequestIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        // TODO write me
+        $file = $this->buildUploadableFile('foo');
+        $new = $this->serverRequest->withUploadedFiles([$file]);
+        $this->assertEmpty($this->serverRequest->getUploadedFiles(), 'withUploadedFiles MUST be immutable');
+
+        $files = $new->getUploadedFiles();
+        $this->assertEquals(1, count($files));
+        $this->assertEquals($file, $files[0]);
     }
 
     public function testGetParsedBody()
@@ -87,7 +96,18 @@ abstract class ServerRequestIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        // TODO write me
+        $data = [
+            4711,
+            null,
+            new \stdClass(),
+            ['foo' => 'bar', 'baz'],
+        ];
+
+        foreach ($data as $item) {
+            $new = $this->serverRequest->withParsedBody($item);
+            $this->assertNull($this->serverRequest->getParsedBody(), 'withParsedBody MUST be immutable');
+            $this->assertEquals($item, $new->getParsedBody());
+        }
     }
 
     public function testGetAttributes()
@@ -96,6 +116,36 @@ abstract class ServerRequestIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        // TODO write me
+        $new = $this->serverRequest->withAttribute('foo', 'bar');
+        $this->assertNull($this->serverRequest->getAttributes(), 'withAttribute MUST be immutable');
+        $this->assertEquals(['foo' => 'bar'], $new->getAttributes());
+
+        $new = $new->withAttribute('baz', 'biz');
+        $this->assertEquals(['foo' => 'bar', 'baz' => 'biz'], $new->getAttributes());
+    }
+
+    public function testGetAttribute()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $new = $this->serverRequest->withAttribute('foo', 'bar');
+        $this->assertEquals('bar', $new->getAttribute('foo'));
+        $this->assertEquals('baz', $new->getAttribute('not found', 'baz'));
+        $this->assertEquals(null, $new->getAttribute('not found'));
+    }
+
+    public function testWithoutAttribute()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $with = $this->serverRequest->withAttribute('foo', 'bar');
+        $without = $with->withoutAttribute('foo');
+
+        $this->assertEquals('bar', $with->getAttribute('foo'), 'withoutAttribute MUST be immutable');
+        $this->assertEquals(null, $without->getAttribute('foo'));
     }
 }
