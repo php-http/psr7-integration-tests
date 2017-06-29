@@ -5,6 +5,7 @@ namespace Http\Psr7Test;
 use GuzzleHttp\Psr7\Stream as GuzzleStream;
 use GuzzleHttp\Psr7\UploadedFile as GuzzleUploadedFile;
 use GuzzleHttp\Psr7\Uri as GuzzleUri;
+use PHPUnit\Framework\TestCase;
 use Slim\Http\Uri as SlimUri;
 use Zend\Diactoros\Stream as ZendStream;
 use Zend\Diactoros\Uri as ZendUri;
@@ -13,7 +14,7 @@ use Zend\Diactoros\UploadedFile as ZendUploadedFile;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends TestCase
 {
     protected function assertNotSameObject($a, $b)
     {
