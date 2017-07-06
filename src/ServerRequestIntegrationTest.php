@@ -90,24 +90,52 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         $this->assertEquals($file, $files[0]);
     }
 
-    public function testGetParsedBody()
+    /**
+     * @dataProvider validParsedBodyParams
+     */
+    public function testGetParsedBody($value)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $data = [
-            4711,
-            null,
-            new \stdClass(),
-            ['foo' => 'bar', 'baz'],
-        ];
+        $new = $this->serverRequest->withParsedBody($value);
+        $this->assertNull($this->serverRequest->getParsedBody(), 'withParsedBody MUST be immutable');
+        $this->assertEquals($value, $new->getParsedBody());
+    }
 
-        foreach ($data as $item) {
-            $new = $this->serverRequest->withParsedBody($item);
-            $this->assertNull($this->serverRequest->getParsedBody(), 'withParsedBody MUST be immutable');
-            $this->assertEquals($item, $new->getParsedBody());
+    public function validParsedBodyParams()
+    {
+        return [
+            [null],
+            [new \stdClass()],
+            [['foo' => 'bar', 'baz']],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidParsedBodyParams
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetParsedBodyInvalid($value)
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
+
+        $new = $this->serverRequest->withParsedBody($value);
+        $this->assertNull($this->serverRequest->getParsedBody(), 'withParsedBody MUST be immutable');
+        $this->assertEquals($value, $new->getParsedBody());
+    }
+
+    public function invalidParsedBodyParams()
+    {
+        return [
+            [4711],
+            [47.11],
+            ['foobar'],
+            [true],
+        ];
     }
 
     public function testGetAttributes()
@@ -117,7 +145,9 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         }
 
         $new = $this->serverRequest->withAttribute('foo', 'bar');
-        $this->assertNull($this->serverRequest->getAttributes(), 'withAttribute MUST be immutable');
+        $oldAttributes = $this->serverRequest->getAttributes();
+        $this->assertInternalType('array', $oldAttributes, 'getAttributes MUST return an array');
+        $this->assertEmpty($oldAttributes, 'withAttribute MUST be immutable');
         $this->assertEquals(['foo' => 'bar'], $new->getAttributes());
 
         $new = $new->withAttribute('baz', 'biz');

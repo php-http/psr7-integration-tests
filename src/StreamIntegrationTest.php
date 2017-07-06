@@ -27,13 +27,12 @@ abstract class StreamIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $url = 'https://raw.githubusercontent.com/php-http/multipart-stream-builder/master/tests/Resources/httplug.png';
-        $resource = fopen($url, 'r');
+        $resource = fopen(__FILE__, 'r');
         $stream = $this->createStream($resource);
 
         // Make sure this does not throw exception
         $content = (string) $stream;
-        $this->assertTrue(!empty($content), 'You MUST be able to convert a read only stream to string');
+        $this->assertNotEmpty($content, 'You MUST be able to convert a read only stream to string');
     }
 
     public function testToStringRewindStreamBeforeToString()
