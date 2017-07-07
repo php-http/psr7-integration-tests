@@ -2,8 +2,7 @@
 
 namespace Http\Psr7Test;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UploadedFileInterface;
 
 /**
  * TODO Write me.
@@ -18,18 +17,18 @@ abstract class UploadedFileIntegrationTest extends BaseTest
     protected $skippedTests = [];
 
     /**
-     * @var ServerRequestInterface
+     * @var UploadedFileInterface
      */
-    private $serverRequest;
+    private $uploadedFile;
 
     /**
-     * @return RequestInterface that is used in the tests
+     * @return UploadedFileInterface that is used in the tests
      */
     abstract public function createSubject();
 
     protected function setUp()
     {
-        $this->serverRequest = $this->createSubject();
+        $this->uploadedFile = $this->createSubject();
     }
 
     public function testNothing()

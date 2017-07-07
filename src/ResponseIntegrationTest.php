@@ -2,7 +2,6 @@
 
 namespace Http\Psr7Test;
 
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -23,7 +22,7 @@ abstract class ResponseIntegrationTest extends BaseTest
     private $response;
 
     /**
-     * @return RequestInterface that is used in the tests
+     * @return ResponseInterface that is used in the tests
      */
     abstract public function createSubject();
 
