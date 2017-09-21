@@ -60,8 +60,9 @@ abstract class StreamIntegrationTest extends BaseTest
         fwrite($resource, 'abcdef');
         $stream = $this->createStream($resource);
 
+        $this->assertTrue(is_resource($resource));
         $stream->close();
-        $this->assertFalse(@fclose($resource));
+        $this->assertFalse(is_resource($resource));
     }
 
     public function testDetach()
