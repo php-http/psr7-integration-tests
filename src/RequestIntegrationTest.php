@@ -66,6 +66,28 @@ abstract class RequestIntegrationTest extends BaseTest
         $this->assertEquals('head', $request->getMethod());
     }
 
+    /**
+     * @dataProvider getInvalidMethods
+     */
+    public function testMethodWithInvalidArguments($method)
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->request->withMethod($method);
+    }
+
+    public function getInvalidMethods()
+    {
+        return [
+            [false],
+            [['foo']],
+            [new \stdClass()]
+        ];
+    }
+
     public function testUri()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {

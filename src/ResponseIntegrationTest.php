@@ -47,6 +47,31 @@ abstract class ResponseIntegrationTest extends BaseTest
         $this->assertEquals(204, $response->getStatusCode());
     }
 
+    /**
+     * @dataProvider getInvalidStatusCodeArguments
+     */
+    public function testStatusCodeInvalidArgument($statusCode)
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->response->withStatus($statusCode);
+    }
+
+    public function getInvalidStatusCodeArguments()
+    {
+        return [
+            [true],
+            ['foobar'],
+            [99],
+            [600],
+            [200.34],
+            [new \stdClass()],
+        ];
+    }
+
     public function testReasonPhrase()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
