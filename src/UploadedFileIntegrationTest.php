@@ -110,7 +110,7 @@ abstract class UploadedFileIntegrationTest extends BaseTest
         $file = $this->createSubject();
         $size = $file->getSize();
         if ($size) {
-            $this->assertRegExp('|^[0-9]+$|', (string)$size);
+            $this->assertRegExp('|^[0-9]+$|', (string) $size);
         } else {
             $this->assertNull($size);
         }
