@@ -1,11 +1,18 @@
 # HTTP Message
 
 [![Latest Version](https://img.shields.io/github/release/php-http/psr7-integration-tests.svg?style=flat-square)](https://github.com/php-http/psr7-integration-tests/releases)
-[![Build Status](https://img.shields.io/travis/php-http/psr7-integration-tests/master.svg?style=flat-square)](https://travis-ci.org/php-http/psr7-integration-tests)
 [![Total Downloads](https://img.shields.io/packagist/dt/php-http/psr7-integration-tests.svg?style=flat-square)](https://packagist.org/packages/php-http/psr7-integration-tests)
 
-**HTTP Message related tools.**
+**Test PSR7 implementations against the specification.**
 
+## Status
+
+| PSR7 Implementation | Status        |
+| ------------------- |:-------------:|
+| Guzzle              | [![Guzzle](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/1)](https://travis-ci.org/php-http/psr7-integration-tests)      |
+| Zend                | [![Zend](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/2)](https://travis-ci.org/php-http/psr7-integration-tests)        |
+| Slim                | [![Slim](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/3)](https://travis-ci.org/php-http/psr7-integration-tests)        |
+| Nyholm              | [![Nyholm](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/4)](https://travis-ci.org/php-http/psr7-integration-tests)      |
 
 ## Install
 
