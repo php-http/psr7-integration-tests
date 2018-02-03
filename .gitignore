@@ -1,3 +1,4 @@
+/.tmp
 /behat.yml
 /build/
 /composer.lock
