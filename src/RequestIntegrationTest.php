@@ -84,7 +84,7 @@ abstract class RequestIntegrationTest extends BaseTest
         return [
             [false],
             [['foo']],
-            [new \stdClass()]
+            [new \stdClass()],
         ];
     }
 
