@@ -9,10 +9,10 @@
 
 | PSR7 Implementation | Status        |
 | ------------------- |:-------------:|
-| Guzzle              | ![Guzzle](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/1)     |
-| Zend                | ![Zend](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/2)      |
-| Slim                | ![Slim](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/3)      |
-| Nyholm              | ![Nyholm](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/4)      |
+| Guzzle              | [![Guzzle](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/1)](https://travis-ci.org/php-http/psr7-integration-tests)      |
+| Zend                | [![Zend](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/2)](https://travis-ci.org/php-http/psr7-integration-tests)        |
+| Slim                | [![Slim](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/3)](https://travis-ci.org/php-http/psr7-integration-tests)        |
+| Nyholm              | [![Nyholm](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/4)](https://travis-ci.org/php-http/psr7-integration-tests)      |
 
 ## Install
 
