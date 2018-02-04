@@ -108,30 +108,72 @@ abstract class UriIntegrationTest extends BaseTest
         $this->assertEquals(81, $uri->getPort());
     }
 
-    public function testPath()
+    /**
+     * @dataProvider getPaths
+     */
+    public function testPath(UriInterface $uri, $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        // TODO
+        $this->assertEquals($expected, $uri->getPath());
     }
 
-    public function testQuery()
+    public function getPaths()
     {
-        if (isset($this->skippedTests[__FUNCTION__])) {
-            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
-        }
-
-        // TODO
+        return [
+            [$this->createUri('http://www.foo.com/'), '/'],
+            [$this->createUri('http://www.foo.com'), ''],
+            [$this->createUri('foo/bar'), 'foo/bar'],
+            [$this->createUri('http://www.foo.com/foo bar'), '/foo%20bar'],
+            [$this->createUri('http://www.foo.com/foo%20bar'), '/foo%20bar'],
+            [$this->createUri('http://www.foo.com/foo%2fbar'), '/foo%2fbar'],
+        ];
     }
 
-    public function testFragment()
+    /**
+     * @dataProvider getQueries
+     */
+    public function testQuery(UriInterface $uri, $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        // TODO
+        $this->assertEquals($expected, $uri->getQuery());
+    }
+
+    public function getQueries()
+    {
+        return [
+            [$this->createUri('http://www.foo.com'), ''],
+            [$this->createUri('http://www.foo.com?'), ''],
+            [$this->createUri('http://www.foo.com?foo=bar'), 'foo=bar'],
+            [$this->createUri('http://www.foo.com?foo=bar%26baz'), 'foo=bar%26baz'],
+            [$this->createUri('http://www.foo.com?foo=bar&baz=biz'), 'foo=bar&baz=biz'],
+        ];
+    }
+
+    /**
+     * @dataProvider getFragments
+     */
+    public function testFragment(UriInterface $uri, $expected)
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $this->assertEquals($expected, $uri->getFragment());
+    }
+
+    public function getFragments()
+    {
+        return [
+            [$this->createUri('http://www.foo.com'), ''],
+            [$this->createUri('http://www.foo.com#'), ''],
+            [$this->createUri('http://www.foo.com#foo'), 'foo'],
+            [$this->createUri('http://www.foo.com#foo%20bar'), 'foo%20bar'],
+        ];
     }
 }
