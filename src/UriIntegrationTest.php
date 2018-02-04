@@ -38,6 +38,29 @@ abstract class UriIntegrationTest extends BaseTest
         $this->assertEquals('http', $newUri->getScheme());
     }
 
+    /**
+     * @dataProvider getInvalidSchemaArguments
+     */
+    public function testWithSchemeInvalidArguments($schema)
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->createUri('/')->withScheme($schema);
+    }
+
+    public function getInvalidSchemaArguments()
+    {
+        return [
+            [true],
+            [['foobar']],
+            [34],
+            [new \stdClass()],
+        ];
+    }
+
     public function testAuthority()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {

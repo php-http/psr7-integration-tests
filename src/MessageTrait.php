@@ -103,6 +103,35 @@ trait MessageTrait
 
         $message = $initialMessage->withHeader('Content-TYPE', 'text/script');
         $this->assertEquals('text/script', $message->getHeaderLine('content-type'));
+
+        $message = $initialMessage->withHeader('x-foo', ['bar', 'baz']);
+        $this->assertRegExp('|bar, ?baz|', $message->getHeaderLine('x-foo'));
+    }
+
+    /**
+     * @dataProvider getInvalidHeaderArguments
+     */
+    public function testWithHeaderInvalidArguments($name, $value)
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+        $this->expectException(\InvalidArgumentException::class);
+        $initialMessage = $this->getMessage();
+        $initialMessage->withHeader($name, $value);
+    }
+
+    public function getInvalidHeaderArguments()
+    {
+        return [
+            [[], 'foo'],
+            ['foo', []],
+            ['', ''],
+            ['foo', false],
+            [false, 'foo'],
+            ['foo', new \stdClass()],
+            [new \stdClass(), 'foo'],
+        ];
     }
 
     public function testWithAddedHeader()
@@ -115,6 +144,19 @@ trait MessageTrait
         $message = $message->withAddedHeader('CONTENT-type', 'text/plain');
         $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('content-type'));
         $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
+    }
+
+    /**
+     * @dataProvider getInvalidHeaderArguments
+     */
+    public function testWithAddedHeaderInvalidArguments($name, $value)
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+        $this->expectException(\InvalidArgumentException::class);
+        $initialMessage = $this->getMessage();
+        $initialMessage->withAddedHeader($name, $value);
     }
 
     /**
