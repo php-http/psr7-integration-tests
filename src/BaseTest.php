@@ -84,11 +84,11 @@ class BaseTest extends TestCase
         }
 
         if (class_exists(GuzzleUploadedFile::class)) {
-            return new GuzzleUploadedFile($data, count($data), 0);
+            return new GuzzleUploadedFile($data, strlen($data), 0);
         }
 
         if (class_exists(ZendUploadedFile::class)) {
-            return new ZendUploadedFile($data, count($data), 0);
+            return new ZendUploadedFile($data, strlen($data), 0);
         }
 
         throw new \RuntimeException('Could not create Stream. Check your config');
