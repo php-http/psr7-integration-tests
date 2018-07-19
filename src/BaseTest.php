@@ -6,6 +6,7 @@ use GuzzleHttp\Psr7\Stream as GuzzleStream;
 use GuzzleHttp\Psr7\UploadedFile as GuzzleUploadedFile;
 use GuzzleHttp\Psr7\Uri as GuzzleUri;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\UriInterface;
 use Slim\Http\Uri as SlimUri;
 use Zend\Diactoros\Stream as ZendStream;
 use Zend\Diactoros\Uri as ZendUri;
@@ -26,11 +27,18 @@ class BaseTest extends TestCase
         if (defined('URI_FACTORY')) {
             $factoryClass = URI_FACTORY;
             $factory = new $factoryClass();
-            if (!$factory instanceof \Http\Message\UriFactory) {
-                throw new \RuntimeException('Constant "URI_FACTORY" must be a reference to a Http\Message\UriFactory');
+            if ($factory instanceof \Http\Message\UriFactory) {
+                return $factory->createUri($uri);
+            }
+            if ($factory instanceof \Interop\Http\Factory\UriFactoryInterface) {
+                if ($uri instanceof UriInterface) {
+                    return $uri;
+                }
+
+                return $factory->createUri($uri);
             }
 
-            return $factory->createUri($uri);
+            throw new \RuntimeException('Constant "URI_FACTORY" must be a reference to a Http\Message\UriFactory or \Interop\Http\Factory\UriFactoryInterface');
         }
 
         if (class_exists(GuzzleUri::class)) {
@@ -53,11 +61,18 @@ class BaseTest extends TestCase
         if (defined('STREAM_FACTORY')) {
             $factoryClass = STREAM_FACTORY;
             $factory = new $factoryClass();
-            if (!$factory instanceof \Http\Message\StreamFactory) {
-                throw new \RuntimeException('Constant "STREAM_FACTORY" must be a reference to a Http\Message\StreamFactory');
+            if ($factory instanceof \Http\Message\StreamFactory) {
+                return $factory->createStream($data);
+            }
+            if ($factory instanceof \Interop\Http\Factory\StreamFactoryInterface) {
+                if (is_string($data)) {
+                    return $factory->createStream($data);
+                } else {
+                    return $factory->createStreamFromResource($data);
+                }
             }
 
-            return $factory->createStream($data);
+            throw new \RuntimeException('Constant "STREAM_FACTORY" must be a reference to a Http\Message\StreamFactory or \Interop\Http\Factory\StreamFactoryInterface');
         }
 
         if (class_exists(GuzzleStream::class)) {
@@ -80,7 +95,9 @@ class BaseTest extends TestCase
                 throw new \RuntimeException('Constant "UPLOADED_FILE_FACTORY" must be a reference to a Interop\Http\Factory\UploadedFileFactoryInterface');
             }
 
-            return $factory->createUploadedFile($data);
+            $stream = $this->buildStream($data);
+
+            return $factory->createUploadedFile($stream);
         }
 
         if (class_exists(GuzzleUploadedFile::class)) {
