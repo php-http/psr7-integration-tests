@@ -2,11 +2,10 @@
 
 namespace Http\Psr7Test;
 
+use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UploadedFileInterface;
 
 /**
- * TODO Write me.
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 abstract class UploadedFileIntegrationTest extends BaseTest
@@ -26,17 +25,133 @@ abstract class UploadedFileIntegrationTest extends BaseTest
      */
     abstract public function createSubject();
 
+    public static function setUpBeforeClass()
+    {
+        @mkdir('.tmp');
+        parent::setUpBeforeClass();
+    }
+
     protected function setUp()
     {
         $this->uploadedFile = $this->createSubject();
     }
 
-    public function testNothing()
+    public function testGetStream()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->assertTrue(true);
+        $file = $this->createSubject();
+
+        $stream = $file->getStream();
+        $this->assertTrue($stream instanceof StreamInterface);
+    }
+
+    public function testGetStreamAfterMoveTo()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $file = $this->createSubject();
+        $this->expectException(\RuntimeException::class);
+        $file->moveTo(sys_get_temp_dir().'/foo');
+        $file->getStream();
+    }
+
+    public function testMoveToAbsolute()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $file = $this->createSubject();
+        $targetPath = sys_get_temp_dir().'/'.uniqid('foo', true);
+
+        $this->assertFalse(is_file($targetPath));
+        $file->moveTo($targetPath);
+        $this->assertTrue(is_file($targetPath));
+    }
+
+    public function testMoveToRelative()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $file = $this->createSubject();
+        $targetPath = '.tmp/'.uniqid('foo', true);
+
+        $this->assertFalse(is_file($targetPath));
+        $file->moveTo($targetPath);
+        $this->assertTrue(is_file($targetPath));
+    }
+
+    public function testMoveToTwice()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+        $this->expectException(\RuntimeException::class);
+
+        $file = $this->createSubject();
+        $file->moveTo('.tmp/'.uniqid('foo', true));
+        $file->moveTo('.tmp/'.uniqid('foo', true));
+    }
+
+    public function testGetSize()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $file = $this->createSubject();
+        $size = $file->getSize();
+        if ($size) {
+            $this->assertRegExp('|^[0-9]+$|', (string) $size);
+        } else {
+            $this->assertNull($size);
+        }
+    }
+
+    public function testGetError()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $file = $this->createSubject();
+        $this->assertEquals(UPLOAD_ERR_OK, $file->getError());
+    }
+
+    public function testGetClientFilename()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $file = $this->createSubject();
+        $name = $file->getClientFilename();
+        if ($name) {
+            $this->assertTrue(is_string($name));
+        } else {
+            $this->assertNull($name);
+        }
+    }
+
+    public function testGetClientMediaType()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $file = $this->createSubject();
+        $type = $file->getClientMediaType();
+        if ($type) {
+            $this->assertTrue(is_string($type));
+        } else {
+            $this->assertNull($type);
+        }
     }
 }
