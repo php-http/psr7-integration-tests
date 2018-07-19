@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "zendframework/zend-diactoros": "^1.0",
+        "http-interop/http-factory": "^0.4",
         "guzzlehttp/psr7": "^1.0",
         "slim/http": "^0.3",
         "nyholm/psr7": "dev-master"
