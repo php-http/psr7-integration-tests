@@ -205,7 +205,7 @@ abstract class UriIntegrationTest extends BaseTest
         $expected = 'https://0:0@0:1/0?0#0';
         $uri = $this->createUri($expected);
 
-        $this->assertSame($expected,(string) $uri);
+        $this->assertSame($expected, (string) $uri);
     }
 
     public function testUriModification2()
