@@ -199,4 +199,29 @@ abstract class UriIntegrationTest extends BaseTest
             [$this->createUri('http://www.foo.com#foo%20bar'), 'foo%20bar'],
         ];
     }
+
+    public function testUriModification1()
+    {
+        $expected = 'https://0:0@0:1/0?0#0';
+        $uri = $this->createUri($expected);
+
+        $this->assertSame($expected, (string) $uri);
+    }
+
+    public function testUriModification2()
+    {
+        $expected = 'https://0:0@0:1/0?0#0';
+        $uri = $this
+            ->createUri('')
+            ->withHost('0')
+            ->withPort(1)
+            ->withUserInfo('0', '0')
+            ->withScheme('https')
+            ->withPath('/0')
+            ->withQuery('0')
+            ->withFragment('0')
+        ;
+
+        $this->assertSame($expected, (string) $uri);
+    }
 }
