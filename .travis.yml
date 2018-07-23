@@ -17,6 +17,7 @@ env:
         - SUITE="Zend"
         - SUITE="Slim"
         - SUITE="Nyholm"
+        - SUITE="RingCentral"
 
 branches:
     except:
