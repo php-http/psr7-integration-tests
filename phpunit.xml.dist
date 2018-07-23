@@ -16,6 +16,10 @@
       <directory>./tests/Guzzle/</directory>
     </testsuite>
 
+    <testsuite name="RingCentral">
+      <directory>./tests/RingCentral/</directory>
+    </testsuite>
+
     <testsuite name="Slim">
         <directory>./tests/Slim/</directory>
     </testsuite>

@@ -19,6 +19,7 @@
         "zendframework/zend-diactoros": "^1.8",
         "guzzlehttp/psr7": "^1.4",
         "slim/http": "^0.3",
+        "ringcentral/psr7": "^1.2",
         "nyholm/psr7": "dev-master"
     },
     "autoload": {
