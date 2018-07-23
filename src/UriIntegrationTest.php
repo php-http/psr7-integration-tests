@@ -224,16 +224,4 @@ abstract class UriIntegrationTest extends BaseTest
 
         $this->assertSame($expected, (string) $uri);
     }
-
-    public function testUriModificationInMajorImplementationDontFollowRFC3986()
-    {
-        $uri = $this->createUri('https://example.com')->withPath('path');
-        $this->assertSame('https://example.com/path', (string) $uri);
-    }
-
-    public function testUriAgainstRFC3986RulesShouldThrowException()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->createUri('https://example.com')->withPath('path');
-    }
 }
