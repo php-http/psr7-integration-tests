@@ -30,7 +30,7 @@ class BaseTest extends TestCase
             if ($factory instanceof \Http\Message\UriFactory) {
                 return $factory->createUri($uri);
             }
-            if ($factory instanceof \Interop\Http\Factory\UriFactoryInterface) {
+            if ($factory instanceof \Psr\Http\Message\UriFactoryInterface) {
                 if ($uri instanceof UriInterface) {
                     return $uri;
                 }
@@ -38,7 +38,7 @@ class BaseTest extends TestCase
                 return $factory->createUri($uri);
             }
 
-            throw new \RuntimeException('Constant "URI_FACTORY" must be a reference to a Http\Message\UriFactory or \Interop\Http\Factory\UriFactoryInterface');
+            throw new \RuntimeException('Constant "URI_FACTORY" must be a reference to a Http\Message\UriFactory or \Psr\Http\Message\UriFactoryInterface');
         }
 
         if (class_exists(GuzzleUri::class)) {
@@ -64,7 +64,7 @@ class BaseTest extends TestCase
             if ($factory instanceof \Http\Message\StreamFactory) {
                 return $factory->createStream($data);
             }
-            if ($factory instanceof \Interop\Http\Factory\StreamFactoryInterface) {
+            if ($factory instanceof \Psr\Http\Message\StreamFactoryInterface) {
                 if (is_string($data)) {
                     return $factory->createStream($data);
                 } else {
@@ -72,7 +72,7 @@ class BaseTest extends TestCase
                 }
             }
 
-            throw new \RuntimeException('Constant "STREAM_FACTORY" must be a reference to a Http\Message\StreamFactory or \Interop\Http\Factory\StreamFactoryInterface');
+            throw new \RuntimeException('Constant "STREAM_FACTORY" must be a reference to a Http\Message\StreamFactory or \Psr\Http\Message\StreamFactoryInterface');
         }
 
         if (class_exists(GuzzleStream::class)) {
@@ -91,8 +91,8 @@ class BaseTest extends TestCase
         if (defined('UPLOADED_FILE_FACTORY')) {
             $factoryClass = UPLOADED_FILE_FACTORY;
             $factory = new $factoryClass();
-            if (!$factory instanceof \Interop\Http\Factory\UploadedFileFactoryInterface) {
-                throw new \RuntimeException('Constant "UPLOADED_FILE_FACTORY" must be a reference to a Interop\Http\Factory\UploadedFileFactoryInterface');
+            if (!$factory instanceof \Psr\Http\Message\UploadedFileFactoryInterface) {
+                throw new \RuntimeException('Constant "UPLOADED_FILE_FACTORY" must be a reference to a Psr\Http\Message\UploadedFileFactoryInterface');
             }
 
             $stream = $this->buildStream($data);
