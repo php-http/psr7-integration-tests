@@ -35,6 +35,11 @@ Please see the [official documentation](http://docs.php-http.org/en/latest).
 $ composer test
 ```
 
+It is also possible to exclude tests that require a live internet connection:
+
+``` bash
+$ composer test -- --exclude-group internet
+```
 
 ## Contributing
 
