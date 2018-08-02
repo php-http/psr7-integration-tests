@@ -137,6 +137,16 @@ abstract class StreamIntegrationTest extends BaseTest
         fwrite($resource, 'abcdef');
         $stream = $this->createStream($resource);
         $this->assertTrue($stream->isSeekable());
+    }
+
+    /**
+     * @group internet
+     */
+    public function testIsNotSeekable()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
 
         $url = 'https://raw.githubusercontent.com/php-http/multipart-stream-builder/master/tests/Resources/httplug.png';
         $resource = fopen($url, 'r');
@@ -154,6 +164,16 @@ abstract class StreamIntegrationTest extends BaseTest
         fwrite($resource, 'abcdef');
         $stream = $this->createStream($resource);
         $this->assertTrue($stream->isWritable());
+    }
+
+    /**
+     * @group internet
+     */
+    public function testIsNotWritable()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
 
         $url = 'https://raw.githubusercontent.com/php-http/multipart-stream-builder/master/tests/Resources/httplug.png';
         $resource = fopen($url, 'r');
@@ -171,6 +191,16 @@ abstract class StreamIntegrationTest extends BaseTest
         fwrite($resource, 'abcdef');
         $stream = $this->createStream($resource);
         $this->assertTrue($stream->isReadable());
+    }
+
+    /**
+     * @group internet
+     */
+    public function testIsNotReadable()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
 
         $url = 'https://raw.githubusercontent.com/php-http/multipart-stream-builder/master/tests/Resources/httplug.png';
         $resource = fopen($url, 'r');
@@ -207,6 +237,7 @@ abstract class StreamIntegrationTest extends BaseTest
     }
 
     /**
+     * @group internet
      * @expectedException \RuntimeException
      */
     public function testRewindNotSeekable()
