@@ -20,7 +20,7 @@
 Via Composer
 
 ``` bash
-$ composer require php-http/psr7-integration-tests
+$ composer require --dev php-http/psr7-integration-tests
 ```
 
 
