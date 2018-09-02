@@ -106,6 +106,10 @@ trait MessageTrait
 
         $message = $initialMessage->withHeader('x-foo', ['bar', 'baz']);
         $this->assertRegExp('|bar, ?baz|', $message->getHeaderLine('x-foo'));
+
+        $message = $initialMessage->withHeader('Bar', '');
+        $this->assertTrue($message->hasHeader('Bar'));
+        $this->assertEquals([''], $message->getHeader('Bar'));
     }
 
     /**
