@@ -1,9 +1,12 @@
 {
     "name": "php-http/psr7-integration-tests",
     "description": "Test suite for PSR7",
-    "license": "MIT",
-    "keywords": ["test", "psr-7"],
+    "keywords": [
+        "test",
+        "psr-7"
+    ],
     "homepage": "http://php-http.org",
+    "license": "MIT",
     "authors": [
         {
             "name": "Tobias Nyholm",
@@ -11,16 +14,21 @@
         }
     ],
     "require": {
-        "php": "^5.4 || ^7.0",
-        "psr/http-message": "^1.0",
-        "phpunit/phpunit": "^5.4 || ^6.0 || ^7.0"
+        "php": "^5.5 || ^7.0",
+        "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "zendframework/zend-diactoros": "^1.8",
         "guzzlehttp/psr7": "^1.4",
-        "slim/http": "^0.3",
+        "nyholm/psr7": "dev-master",
+        "phpunit/phpunit": "^5.4 || ^6.0 || ^7.0",
         "ringcentral/psr7": "^1.2",
-        "nyholm/psr7": "dev-master"
+        "slim/http": "^0.3",
+        "zendframework/zend-diactoros": "^1.8"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -33,11 +41,6 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
+        "test": "phpunit"
     }
 }
