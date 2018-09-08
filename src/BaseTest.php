@@ -15,7 +15,7 @@ use Zend\Diactoros\UploadedFile as ZendUploadedFile;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class BaseTest extends TestCase
+abstract class BaseTest extends TestCase
 {
     protected function assertNotSameObject($a, $b)
     {
