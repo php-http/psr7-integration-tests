@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "guzzlehttp/psr7": "^1.4",
-        "nyholm/psr7": "dev-master",
+        "nyholm/psr7": "^1.0",
         "ringcentral/psr7": "^1.2",
         "slim/http": "^0.3",
         "zendframework/zend-diactoros": "^1.8"
