@@ -1,6 +1,5 @@
 # HTTP Message
 
-[![Latest Version](https://img.shields.io/github/release/php-http/psr7-integration-tests.svg?style=flat-square)](https://github.com/php-http/psr7-integration-tests/releases)
 [![Total Downloads](https://img.shields.io/packagist/dt/php-http/psr7-integration-tests.svg?style=flat-square)](https://packagist.org/packages/php-http/psr7-integration-tests)
 
 **Test PSR7 implementations against the specification.**
