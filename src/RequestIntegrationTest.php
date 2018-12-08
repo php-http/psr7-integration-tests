@@ -47,7 +47,7 @@ abstract class RequestIntegrationTest extends BaseTest
 
     protected function getClone()
     {
-        return $this->request;
+        return $this->clone;
     }
 
     public function testRequestTarget()

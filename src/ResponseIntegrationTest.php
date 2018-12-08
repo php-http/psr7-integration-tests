@@ -44,6 +44,11 @@ abstract class ResponseIntegrationTest extends BaseTest
         return $this->response;
     }
 
+    protected function getClone()
+    {
+        return $this->clone;
+    }
+
     public function testStatusCode()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {

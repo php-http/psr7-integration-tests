@@ -16,6 +16,11 @@ trait MessageTrait
      */
     abstract protected function getMessage();
 
+    /**
+     * @return MessageInterface
+     */
+    abstract protected function getClone();
+
     public function testProtocolVersion()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -37,12 +42,20 @@ trait MessageTrait
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
-        $message = $message->withAddedHeader('content-type', 'text/plain');
+        $initialMessage = $this->getMessage();
+
+        $message = $initialMessage
+            ->withAddedHeader('content-type', 'text/html')
+            ->withAddedHeader('content-type', 'text/plain');
+
+        $this->assertEquals($initialMessage, $this->getClone());
+
         $headers = $message->getHeaders();
 
         $this->assertTrue(isset($headers['content-type']));
         $this->assertCount(2, $headers['content-type']);
+        $this->assertContains('text/html', $headers['content-type']);
+        $this->assertContains('text/plain', $headers['content-type']);
     }
 
     public function testHasHeader()
