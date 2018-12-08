@@ -28,7 +28,7 @@ abstract class UriIntegrationTest extends BaseTest
         }
 
         $uri = $this->createUri('/');
-        $this->assertEquals('', $uri->getScheme());
+        $this->assertSame('', $uri->getScheme());
 
         $uri = $this->createUri('https://foo.com/');
         $this->assertEquals('https', $uri->getScheme());
@@ -103,7 +103,7 @@ abstract class UriIntegrationTest extends BaseTest
         }
 
         $uri = $this->createUri('/');
-        $this->assertEquals('', $uri->getHost());
+        $this->assertSame('', $uri->getHost());
 
         $uri = $this->createUri('http://www.foo.com/');
         $this->assertEquals('www.foo.com', $uri->getHost());
@@ -128,7 +128,7 @@ abstract class UriIntegrationTest extends BaseTest
         $this->assertNull($uri->getPort());
 
         $uri = $this->createUri('http://www.foo.com:81/');
-        $this->assertEquals(81, $uri->getPort());
+        $this->assertSame(81, $uri->getPort());
     }
 
     /**
@@ -140,7 +140,7 @@ abstract class UriIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->assertEquals($expected, $uri->getPath());
+        $this->assertSame($expected, $uri->getPath());
     }
 
     public function getPaths()
@@ -164,7 +164,7 @@ abstract class UriIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->assertEquals($expected, $uri->getQuery());
+        $this->assertSame($expected, $uri->getQuery());
     }
 
     public function getQueries()
@@ -205,6 +205,7 @@ abstract class UriIntegrationTest extends BaseTest
         $expected = 'https://0:0@0:1/0?0#0';
         $uri = $this->createUri($expected);
 
+        $this->assertInstanceOf(UriInterface::class, $uri);
         $this->assertSame($expected, (string) $uri);
     }
 
@@ -222,6 +223,7 @@ abstract class UriIntegrationTest extends BaseTest
             ->withFragment('0')
         ;
 
+        $this->assertInstanceOf(UriInterface::class, $uri);
         $this->assertSame($expected, (string) $uri);
     }
 }

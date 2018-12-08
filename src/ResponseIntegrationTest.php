@@ -22,6 +22,13 @@ abstract class ResponseIntegrationTest extends BaseTest
     private $response;
 
     /**
+     * This object is used in order to ensure that the state of the object is kept.
+     *
+     * @var ResponseInterface
+     */
+    private $clone;
+
+    /**
      * @return ResponseInterface that is used in the tests
      */
     abstract public function createSubject();
@@ -29,6 +36,7 @@ abstract class ResponseIntegrationTest extends BaseTest
     protected function setUp()
     {
         $this->response = $this->createSubject();
+        $this->clone = clone $this->response;
     }
 
     protected function getMessage()
@@ -44,7 +52,8 @@ abstract class ResponseIntegrationTest extends BaseTest
 
         $response = $this->response->withStatus(204);
         $this->assertNotSameObject($this->response, $response);
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals($this->response, $this->clone);
+        $this->assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -79,7 +88,7 @@ abstract class ResponseIntegrationTest extends BaseTest
         }
 
         $response = $this->response->withStatus(204, 'Foobar');
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertSame(204, $response->getStatusCode());
         $this->assertEquals('Foobar', $response->getReasonPhrase());
     }
 }

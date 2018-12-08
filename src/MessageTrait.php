@@ -24,9 +24,11 @@ trait MessageTrait
 
         $initialMessage = $this->getMessage();
         $message = $initialMessage->withProtocolVersion('1.0');
-        $this->assertNotSameObject($initialMessage, $message);
 
-        $this->assertEquals('1.0', $message->getProtocolVersion());
+        $this->assertNotSameObject($initialMessage, $message);
+        $this->assertEquals($initialMessage, $this->getClone());
+
+        $this->assertSame('1.0', $message->getProtocolVersion());
     }
 
     public function testGetHeaders()
@@ -69,7 +71,7 @@ trait MessageTrait
         $this->assertCount(2, $message->getHeader('CONTENT-TYPE'));
         $emptyHeader = $message->getHeader('Bar');
         $this->assertCount(0, $emptyHeader);
-        $this->assertTrue(is_array($emptyHeader));
+        $this->assertInternalType('array', $emptyHeader);
     }
 
     public function testGetHeaderLine()
@@ -84,7 +86,7 @@ trait MessageTrait
         $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
         $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('CONTENT-TYPE'));
 
-        $this->assertEquals('', $message->getHeaderLine('Bar'));
+        $this->assertSame('', $message->getHeaderLine('Bar'));
     }
 
     public function testWithHeader()
@@ -96,6 +98,7 @@ trait MessageTrait
         $initialMessage = $this->getMessage();
         $message = $initialMessage->withHeader('content-type', 'text/html');
         $this->assertNotSameObject($initialMessage, $message);
+        $this->assertEquals($initialMessage, $this->getClone());
         $this->assertEquals('text/html', $message->getHeaderLine('content-type'));
 
         $message = $initialMessage->withHeader('content-type', 'text/plain');
@@ -109,7 +112,7 @@ trait MessageTrait
 
         $message = $initialMessage->withHeader('Bar', '');
         $this->assertTrue($message->hasHeader('Bar'));
-        $this->assertEquals([''], $message->getHeader('Bar'));
+        $this->assertSame([''], $message->getHeader('Bar'));
     }
 
     /**
@@ -230,6 +233,7 @@ trait MessageTrait
         $stream = $this->buildStream('foo');
         $message = $initialMessage->withBody($stream);
         $this->assertNotSameObject($initialMessage, $message);
+        $this->assertEquals($initialMessage, $this->getClone());
 
         $this->assertEquals($stream, $message->getBody());
     }
