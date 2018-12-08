@@ -85,7 +85,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         $this->assertEmpty($this->serverRequest->getUploadedFiles(), 'withUploadedFiles MUST be immutable');
 
         $files = $new->getUploadedFiles();
-        $this->assertEquals(1, count($files));
+        $this->assertCount(1, $files);
         $this->assertEquals($file, $files[0]);
     }
 
@@ -162,7 +162,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         $new = $this->serverRequest->withAttribute('foo', 'bar');
         $this->assertEquals('bar', $new->getAttribute('foo'));
         $this->assertEquals('baz', $new->getAttribute('not found', 'baz'));
-        $this->assertEquals(null, $new->getAttribute('not found'));
+        $this->assertNull($new->getAttribute('not found'));
     }
 
     public function testWithoutAttribute()
@@ -175,6 +175,6 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         $without = $with->withoutAttribute('foo');
 
         $this->assertEquals('bar', $with->getAttribute('foo'), 'withoutAttribute MUST be immutable');
-        $this->assertEquals(null, $without->getAttribute('foo'));
+        $this->assertNull($without->getAttribute('foo'));
     }
 }

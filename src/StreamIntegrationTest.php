@@ -101,13 +101,13 @@ abstract class StreamIntegrationTest extends BaseTest
         fwrite($resource, 'abcdef');
         $stream = $this->createStream($resource);
 
-        $this->assertEquals(6, $stream->tell());
+        $this->assertSame(6, $stream->tell());
         $stream->seek(0);
-        $this->assertEquals(0, $stream->tell());
+        $this->assertSame(0, $stream->tell());
         $stream->seek(3);
-        $this->assertEquals(3, $stream->tell());
+        $this->assertSame(3, $stream->tell());
         $stream->seek(6);
-        $this->assertEquals(6, $stream->tell());
+        $this->assertSame(6, $stream->tell());
     }
 
     public function testEof()
@@ -263,7 +263,7 @@ abstract class StreamIntegrationTest extends BaseTest
         $stream = $this->createStream($resource);
         $bytes = $stream->write('def');
 
-        $this->assertEquals(3, $bytes);
+        $this->assertSame(3, $bytes);
         $this->assertEquals('abcdef', (string) $stream);
     }
 
@@ -298,6 +298,6 @@ abstract class StreamIntegrationTest extends BaseTest
 
         $stream->seek(3);
         $this->assertEquals('def', $stream->getContents());
-        $this->assertEquals('', $stream->getContents());
+        $this->assertSame('', $stream->getContents());
     }
 }
