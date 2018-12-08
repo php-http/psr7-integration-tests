@@ -65,8 +65,6 @@ abstract class ResponseIntegrationTest extends BaseTest
         return [
             [true],
             ['foobar'],
-            [99],
-            [600],
             [200.34],
             [new \stdClass()],
         ];
