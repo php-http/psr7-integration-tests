@@ -16,11 +16,6 @@ trait MessageTrait
      */
     abstract protected function getMessage();
 
-    /**
-     * @return MessageInterface
-     */
-    abstract protected function getClone();
-
     public function testProtocolVersion()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -28,10 +23,12 @@ trait MessageTrait
         }
 
         $initialMessage = $this->getMessage();
+        $original = clone $initialMessage;
+
         $message = $initialMessage->withProtocolVersion('1.0');
 
         $this->assertNotSameObject($initialMessage, $message);
-        $this->assertEquals($initialMessage, $this->getClone());
+        $this->assertEquals($initialMessage, $original, 'Message object MUST not be mutated');
 
         $this->assertSame('1.0', $message->getProtocolVersion());
     }
@@ -43,12 +40,13 @@ trait MessageTrait
         }
 
         $initialMessage = $this->getMessage();
+        $original = clone $initialMessage;
 
         $message = $initialMessage
             ->withAddedHeader('content-type', 'text/html')
             ->withAddedHeader('content-type', 'text/plain');
 
-        $this->assertEquals($initialMessage, $this->getClone());
+        $this->assertEquals($initialMessage, $original, 'Message object MUST not be mutated');
 
         $headers = $message->getHeaders();
 
@@ -109,9 +107,11 @@ trait MessageTrait
         }
 
         $initialMessage = $this->getMessage();
+        $original = clone $initialMessage;
+
         $message = $initialMessage->withHeader('content-type', 'text/html');
         $this->assertNotSameObject($initialMessage, $message);
-        $this->assertEquals($initialMessage, $this->getClone());
+        $this->assertEquals($initialMessage, $original, 'Message object MUST not be mutated');
         $this->assertEquals('text/html', $message->getHeaderLine('content-type'));
 
         $message = $initialMessage->withHeader('content-type', 'text/plain');
@@ -243,10 +243,11 @@ trait MessageTrait
         }
 
         $initialMessage = $this->getMessage();
+        $original = clone $initialMessage;
         $stream = $this->buildStream('foo');
         $message = $initialMessage->withBody($stream);
         $this->assertNotSameObject($initialMessage, $message);
-        $this->assertEquals($initialMessage, $this->getClone());
+        $this->assertEquals($initialMessage, $original, 'Message object MUST not be mutated');
 
         $this->assertEquals($stream, $message->getBody());
     }

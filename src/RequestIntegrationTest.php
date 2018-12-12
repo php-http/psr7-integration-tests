@@ -23,13 +23,6 @@ abstract class RequestIntegrationTest extends BaseTest
     private $request;
 
     /**
-     * This object is used in order to ensure that the state of the object is kept.
-     *
-     * @var RequestInterface
-     */
-    private $clone;
-
-    /**
      * @return RequestInterface that is used in the tests
      */
     abstract public function createSubject();
@@ -37,17 +30,11 @@ abstract class RequestIntegrationTest extends BaseTest
     protected function setUp()
     {
         $this->request = $this->createSubject();
-        $this->clone = clone $this->request;
     }
 
     protected function getMessage()
     {
         return $this->request;
-    }
-
-    protected function getClone()
-    {
-        return $this->clone;
     }
 
     public function testRequestTarget()
@@ -56,11 +43,12 @@ abstract class RequestIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
+        $original = clone $this->request;
         $this->assertEquals('/', $this->request->getRequestTarget());
 
         $request = $this->request->withRequestTarget('*');
         $this->assertNotSameObject($this->request, $request);
-        $this->assertEquals($this->request, $this->clone);
+        $this->assertEquals($this->request, $original, 'Request object MUST not be mutated');
         $this->assertEquals('*', $request->getRequestTarget());
     }
 
@@ -71,10 +59,11 @@ abstract class RequestIntegrationTest extends BaseTest
         }
 
         $this->assertEquals('GET', $this->request->getMethod());
+        $original = clone $this->request;
 
         $request = $this->request->withMethod('POST');
         $this->assertNotSameObject($this->request, $request);
-        $this->assertEquals($this->request, $this->clone);
+        $this->assertEquals($this->request, $original, 'Request object MUST not be mutated');
         $this->assertEquals('POST', $request->getMethod());
 
         $request = $this->request->withMethod('head');
@@ -111,20 +100,21 @@ abstract class RequestIntegrationTest extends BaseTest
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
+        $original = clone $this->request;
 
         $this->assertInstanceOf(UriInterface::class, $this->request->getUri());
 
         $uri = $this->buildUri('http://www.foo.com/bar');
         $request = $this->request->withUri($uri);
         $this->assertNotSameObject($this->request, $request);
-        $this->assertEquals($this->request, $this->clone);
+        $this->assertEquals($this->request, $original, 'Request object MUST not be mutated');
         $this->assertEquals('www.foo.com', $request->getHeaderLine('host'));
         $this->assertInstanceOf(UriInterface::class, $request->getUri());
         $this->assertEquals('http://www.foo.com/bar', (string) $request->getUri());
 
         $request = $request->withUri($this->buildUri('/foobar'));
         $this->assertNotSameObject($this->request, $request);
-        $this->assertEquals($this->request, $this->clone);
+        $this->assertEquals($this->request, $original, 'Request object MUST not be mutated');
         $this->assertEquals('www.foo.com', $request->getHeaderLine('host'), 'If the URI does not contain a host component, any pre-existing Host header MUST be carried over to the returned request.');
         $this->assertEquals('/foobar', (string) $request->getUri());
     }
