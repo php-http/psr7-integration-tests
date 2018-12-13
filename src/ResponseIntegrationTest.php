@@ -42,9 +42,11 @@ abstract class ResponseIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
+        $original = clone $this->response;
         $response = $this->response->withStatus(204);
         $this->assertNotSameObject($this->response, $response);
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals($this->response, $original, 'Response MUST not be mutated');
+        $this->assertSame(204, $response->getStatusCode());
     }
 
     /**
@@ -79,7 +81,7 @@ abstract class ResponseIntegrationTest extends BaseTest
         }
 
         $response = $this->response->withStatus(204, 'Foobar');
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertSame(204, $response->getStatusCode());
         $this->assertEquals('Foobar', $response->getReasonPhrase());
     }
 }
