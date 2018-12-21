@@ -7,7 +7,7 @@ use GuzzleHttp\Psr7\UploadedFile as GuzzleUploadedFile;
 use GuzzleHttp\Psr7\Uri as GuzzleUri;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
-use Slim\Http\Uri as SlimUri;
+use Slim\Psr7\Uri as SlimUri;
 use Zend\Diactoros\Stream as ZendStream;
 use Zend\Diactoros\Uri as ZendUri;
 use Zend\Diactoros\UploadedFile as ZendUploadedFile;

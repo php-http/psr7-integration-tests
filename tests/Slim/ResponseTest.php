@@ -3,7 +3,7 @@
 namespace Http\Psr7Test\Tests\Slim;
 
 use Http\Psr7Test\ResponseIntegrationTest;
-use Slim\Http\Response;
+use Slim\Psr7\Response;
 
 class ResponseTest extends ResponseIntegrationTest
 {
