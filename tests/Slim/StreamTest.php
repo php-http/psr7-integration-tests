@@ -4,7 +4,7 @@ namespace Http\Psr7Test\Tests\Slim;
 
 use Http\Psr7Test\StreamIntegrationTest;
 use Psr\Http\Message\StreamInterface;
-use Slim\Http\Stream;
+use Slim\Psr7\Stream;
 
 class StreamTest extends StreamIntegrationTest
 {

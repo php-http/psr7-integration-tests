@@ -3,7 +3,7 @@
 namespace Http\Psr7Test\Tests\Slim;
 
 use Http\Psr7Test\UploadedFileIntegrationTest;
-use Slim\Http\UploadedFile;
+use Slim\Psr7\UploadedFile;
 
 class UploadedFileTest extends UploadedFileIntegrationTest
 {
