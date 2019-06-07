@@ -113,21 +113,25 @@ abstract class ServerRequestIntegrationTest extends BaseTest
     }
 
     /**
-     * @dataProvider invalidParsedBodyParams
-     * @expectedException \InvalidArgumentException
+     * @dataProvider optionalParsedBodyParams
      */
-    public function testGetParsedBodyInvalid($value)
+    public function testGetParsedBodyOptional($value)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $new = $this->serverRequest->withParsedBody($value);
-        $this->assertNull($this->serverRequest->getParsedBody(), 'withParsedBody MUST be immutable');
-        $this->assertEquals($value, $new->getParsedBody());
+        try {
+            $new = $this->serverRequest->withParsedBody($value);
+            $this->assertSame($value, $new->getParsedBody());
+        } catch (\InvalidArgumentException $e) {
+            // An implementation does not need to accept those values in which case it throws an \InvalidArgumentException
+        } finally {
+            $this->assertNull($this->serverRequest->getParsedBody(), 'withParsedBody MUST be immutable');
+        }
     }
 
-    public function invalidParsedBodyParams()
+    public function optionalParsedBodyParams()
     {
         return [
             [4711],
