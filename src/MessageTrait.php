@@ -82,7 +82,7 @@ trait MessageTrait
         $this->assertCount(2, $message->getHeader('CONTENT-TYPE'));
         $emptyHeader = $message->getHeader('Bar');
         $this->assertCount(0, $emptyHeader);
-        $this->assertInternalType('array', $emptyHeader);
+        $this->assertIsArray($emptyHeader);
     }
 
     public function testGetHeaderLine()

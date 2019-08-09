@@ -238,10 +238,11 @@ abstract class StreamIntegrationTest extends BaseTest
 
     /**
      * @group internet
-     * @expectedException \RuntimeException
      */
     public function testRewindNotSeekable()
     {
+        $this->expectException('\RuntimeException');
+
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }

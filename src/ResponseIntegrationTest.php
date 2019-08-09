@@ -26,7 +26,7 @@ abstract class ResponseIntegrationTest extends BaseTest
      */
     abstract public function createSubject();
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->response = $this->createSubject();
     }
