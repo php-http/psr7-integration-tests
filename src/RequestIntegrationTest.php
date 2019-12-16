@@ -27,7 +27,7 @@ abstract class RequestIntegrationTest extends BaseTest
      */
     abstract public function createSubject();
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = $this->createSubject();
     }

@@ -25,13 +25,13 @@ abstract class UploadedFileIntegrationTest extends BaseTest
      */
     abstract public function createSubject();
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         @mkdir('.tmp');
         parent::setUpBeforeClass();
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->uploadedFile = $this->createSubject();
     }

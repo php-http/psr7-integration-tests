@@ -24,7 +24,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
      */
     abstract public function createSubject();
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serverRequest = $this->createSubject();
     }
@@ -114,10 +114,11 @@ abstract class ServerRequestIntegrationTest extends BaseTest
 
     /**
      * @dataProvider invalidParsedBodyParams
-     * @expectedException \InvalidArgumentException
      */
     public function testGetParsedBodyInvalid($value)
     {
+        $this->expectException('\InvalidArgumentException');
+
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
@@ -145,7 +146,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
 
         $new = $this->serverRequest->withAttribute('foo', 'bar');
         $oldAttributes = $this->serverRequest->getAttributes();
-        $this->assertInternalType('array', $oldAttributes, 'getAttributes MUST return an array');
+        $this->assertIsArray($oldAttributes, 'getAttributes MUST return an array');
         $this->assertEmpty($oldAttributes, 'withAttribute MUST be immutable');
         $this->assertEquals(['foo' => 'bar'], $new->getAttributes());
 
