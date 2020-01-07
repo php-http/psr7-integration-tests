@@ -1,10 +1,10 @@
 <?php
 
-namespace Http\Psr7Test\Tests\Zend;
+namespace Http\Psr7Test\Tests\Laminas;
 
 use Http\Psr7Test\StreamIntegrationTest;
+use Laminas\Diactoros\Stream;
 use Psr\Http\Message\StreamInterface;
-use Zend\Diactoros\Stream;
 
 class StreamTest extends StreamIntegrationTest
 {

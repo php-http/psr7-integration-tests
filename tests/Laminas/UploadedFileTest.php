@@ -1,10 +1,10 @@
 <?php
 
-namespace Http\Psr7Test\Tests\Zend;
+namespace Http\Psr7Test\Tests\Laminas;
 
 use Http\Psr7Test\UploadedFileIntegrationTest;
-use Zend\Diactoros\Stream;
-use Zend\Diactoros\UploadedFile;
+use Laminas\Diactoros\Stream;
+use Laminas\Diactoros\UploadedFile;
 
 class UploadedFileTest extends UploadedFileIntegrationTest
 {
