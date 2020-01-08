@@ -1,9 +1,9 @@
 <?php
 
-namespace Http\Psr7Test\Tests\Zend;
+namespace Http\Psr7Test\Tests\Laminas;
 
 use Http\Psr7Test\ServerRequestIntegrationTest;
-use Zend\Diactoros\ServerRequest;
+use Laminas\Diactoros\ServerRequest;
 
 class ServerRequestTest extends ServerRequestIntegrationTest
 {

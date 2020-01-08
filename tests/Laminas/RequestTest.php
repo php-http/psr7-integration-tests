@@ -1,9 +1,9 @@
 <?php
 
-namespace Http\Psr7Test\Tests\Zend;
+namespace Http\Psr7Test\Tests\Laminas;
 
 use Http\Psr7Test\RequestIntegrationTest;
-use Zend\Diactoros\Request;
+use Laminas\Diactoros\Request;
 
 class RequestTest extends RequestIntegrationTest
 {

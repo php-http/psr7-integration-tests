@@ -15,7 +15,7 @@ env:
         - TEST_COMMAND="./vendor/bin/phpunit"
     matrix:
         - SUITE="Guzzle"
-        - SUITE="Zend"
+        - SUITE="Laminas"
         - SUITE="Slim"
         - SUITE="Nyholm"
         - SUITE="RingCentral"

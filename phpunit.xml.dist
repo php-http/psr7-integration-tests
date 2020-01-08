@@ -23,8 +23,8 @@
         <directory>./tests/Slim/</directory>
     </testsuite>
 
-    <testsuite name="Zend">
-        <directory>./tests/Zend/</directory>
+    <testsuite name="Laminas">
+        <directory>./tests/Laminas/</directory>
     </testsuite>
 
     <testsuite name="Nyholm">

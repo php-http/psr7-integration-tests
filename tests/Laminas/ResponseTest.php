@@ -1,9 +1,9 @@
 <?php
 
-namespace Http\Psr7Test\Tests\Zend;
+namespace Http\Psr7Test\Tests\Laminas;
 
 use Http\Psr7Test\ResponseIntegrationTest;
-use Zend\Diactoros\Response;
+use Laminas\Diactoros\Response;
 
 class ResponseTest extends ResponseIntegrationTest
 {
