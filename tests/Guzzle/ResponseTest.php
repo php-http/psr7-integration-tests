@@ -11,4 +11,14 @@ class ResponseTest extends ResponseIntegrationTest
     {
         return new Response();
     }
+
+    public function getInvalidHeaderArguments()
+    {
+        $testCases = parent::getInvalidHeaderArguments();
+
+        // Guzzle accepts false as value for BC
+        unset($testCases[3]);
+
+        return $testCases;
+    }
 }

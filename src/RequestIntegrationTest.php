@@ -65,9 +65,26 @@ abstract class RequestIntegrationTest extends BaseTest
         $this->assertNotSameObject($this->request, $request);
         $this->assertEquals($this->request, $original, 'Request object MUST not be mutated');
         $this->assertEquals('POST', $request->getMethod());
+    }
+
+    public function testMethodIsCaseSensitive()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
 
         $request = $this->request->withMethod('head');
         $this->assertEquals('head', $request->getMethod());
+    }
+
+    public function testMethodIsExtendable()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $request = $this->request->withMethod('CUSTOM');
+        $this->assertEquals('CUSTOM', $request->getMethod());
     }
 
     /**

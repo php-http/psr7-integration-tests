@@ -117,15 +117,16 @@ abstract class ServerRequestIntegrationTest extends BaseTest
      */
     public function testGetParsedBodyInvalid($value)
     {
-        $this->expectException('\InvalidArgumentException');
-
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $new = $this->serverRequest->withParsedBody($value);
-        $this->assertNull($this->serverRequest->getParsedBody(), 'withParsedBody MUST be immutable');
-        $this->assertEquals($value, $new->getParsedBody());
+        try {
+            $this->serverRequest->withParsedBody($value);
+            $this->fail('Should not be accepted');
+        } catch (\InvalidArgumentException $e) {
+            $this->assertNull($this->serverRequest->getParsedBody(), 'withParsedBody MUST be immutable');
+        }
     }
 
     public function invalidParsedBodyParams()

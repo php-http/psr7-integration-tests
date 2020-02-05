@@ -241,11 +241,11 @@ abstract class StreamIntegrationTest extends BaseTest
      */
     public function testRewindNotSeekable()
     {
-        $this->expectException('\RuntimeException');
-
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
+
+        $this->expectException(\RuntimeException::class);
 
         $url = 'https://raw.githubusercontent.com/php-http/multipart-stream-builder/master/tests/Resources/httplug.png';
         $resource = fopen($url, 'r');
