@@ -226,6 +226,7 @@ trait MessageTrait
         $message = $message->withAddedHeader('X-Foo', 'bar');
 
         $headers = $message->getHeaders();
+
         $headerCount = count($headers);
         $this->assertTrue(isset($headers['Age']));
 
