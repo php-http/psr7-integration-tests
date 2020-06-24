@@ -8,9 +8,13 @@ use GuzzleHttp\Psr7\Uri as GuzzleUri;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
 use Slim\Psr7\Uri as SlimUri;
+
 use Zend\Diactoros\Stream as ZendStream;
 use Zend\Diactoros\Uri as ZendUri;
 use Zend\Diactoros\UploadedFile as ZendUploadedFile;
+use Shieldon\Psr7\Uri as ShieldonUri;
+use Shieldon\Psr17\StreamFactory as ShieldonStreamFactory;
+use Shieldon\Psr17\UploadedFileFactory as ShieldonUploadedFileFactory;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -53,6 +57,14 @@ abstract class BaseTest extends TestCase
             return new ZendUri($uri);
         }
 
+        if (class_exists(ZendUri::class)) {
+            return new ZendUri($uri);
+        }
+
+        if (class_exists(ShieldonUri::class)) {
+            return new ShieldonUri($uri);
+        }
+
         throw new \RuntimeException('Could not create URI. Check your config');
     }
 
@@ -83,6 +95,13 @@ abstract class BaseTest extends TestCase
             return new ZendStream($data);
         }
 
+        if (class_exists(ShieldonStreamFactory::class)) {
+            if (is_string($data)) {
+                return (new ShieldonStreamFactory)->createStream($data);
+            }
+            return (new ShieldonStreamFactory)->createStreamFromResource($data);
+        }
+
         throw new \RuntimeException('Could not create Stream. Check your config');
     }
 
@@ -106,6 +125,10 @@ abstract class BaseTest extends TestCase
 
         if (class_exists(ZendUploadedFile::class)) {
             return new ZendUploadedFile($data, strlen($data), 0);
+        }
+
+        if (class_exists(ShieldonUploadedFileFactory::class)) {
+            return ShieldonUploadedFileFactory::fromGlobal();
         }
 
         throw new \RuntimeException('Could not create Stream. Check your config');
