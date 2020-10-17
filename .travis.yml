@@ -9,6 +9,8 @@ cache:
 php:
     - 7.2
     - 7.3
+    - 7.4
+    - 'nightly'
 
 env:
     global:
@@ -29,7 +31,12 @@ before_install:
     - iphpenv config-rm xdebug.ini || true
 
 install:
-    - travis_retry composer update --prefer-dist --no-interaction
+  - |
+      if [[ $TRAVIS_PHP_VERSION == 'nightly' ]]; then
+        travis_retry composer update --prefer-dist --no-interaction --ignore-platform-reqs
+      else
+        travis_retry composer update --prefer-dist --no-interaction
+      fi
 
 script:
     - $TEST_COMMAND --testsuite $SUITE
