@@ -93,9 +93,9 @@ trait MessageTrait
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
         $message = $message->withAddedHeader('content-type', 'text/plain');
-        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('content-type'));
-        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
-        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('CONTENT-TYPE'));
+        $this->assertMatchesRegexp('|text/html, ?text/plain|', $message->getHeaderLine('content-type'));
+        $this->assertMatchesRegexp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
+        $this->assertMatchesRegexp('|text/html, ?text/plain|', $message->getHeaderLine('CONTENT-TYPE'));
 
         $this->assertSame('', $message->getHeaderLine('Bar'));
     }
@@ -121,7 +121,7 @@ trait MessageTrait
         $this->assertEquals('text/script', $message->getHeaderLine('content-type'));
 
         $message = $initialMessage->withHeader('x-foo', ['bar', 'baz']);
-        $this->assertRegExp('|bar, ?baz|', $message->getHeaderLine('x-foo'));
+        $this->assertMatchesRegexp('|bar, ?baz|', $message->getHeaderLine('x-foo'));
 
         $message = $initialMessage->withHeader('Bar', '');
         $this->assertTrue($message->hasHeader('Bar'));
@@ -162,8 +162,8 @@ trait MessageTrait
 
         $message = $this->getMessage()->withAddedHeader('content-type', 'text/html');
         $message = $message->withAddedHeader('CONTENT-type', 'text/plain');
-        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('content-type'));
-        $this->assertRegExp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
+        $this->assertMatchesRegexp('|text/html, ?text/plain|', $message->getHeaderLine('content-type'));
+        $this->assertMatchesRegexp('|text/html, ?text/plain|', $message->getHeaderLine('Content-Type'));
     }
 
     /**
@@ -192,9 +192,9 @@ trait MessageTrait
         $message = $message->withAddedHeader('content-type', ['text/plain', 'application/json']);
 
         $headerLine = $message->getHeaderLine('content-type');
-        $this->assertRegExp('|text/html|', $headerLine);
-        $this->assertRegExp('|text/plain|', $headerLine);
-        $this->assertRegExp('|application/json|', $headerLine);
+        $this->assertMatchesRegexp('|text/html|', $headerLine);
+        $this->assertMatchesRegexp('|text/plain|', $headerLine);
+        $this->assertMatchesRegexp('|application/json|', $headerLine);
     }
 
     /**
@@ -210,9 +210,9 @@ trait MessageTrait
         $message = $message->withAddedHeader('content-type', ['foo' => 'text/plain', 'bar' => 'application/json']);
 
         $headerLine = $message->getHeaderLine('content-type');
-        $this->assertRegExp('|text/html|', $headerLine);
-        $this->assertRegExp('|text/plain|', $headerLine);
-        $this->assertRegExp('|application/json|', $headerLine);
+        $this->assertMatchesRegexp('|text/html|', $headerLine);
+        $this->assertMatchesRegexp('|text/plain|', $headerLine);
+        $this->assertMatchesRegexp('|application/json|', $headerLine);
     }
 
     public function testWithoutHeader()
@@ -250,5 +250,15 @@ trait MessageTrait
         $this->assertEquals($initialMessage, $original, 'Message object MUST not be mutated');
 
         $this->assertEquals($stream, $message->getBody());
+    }
+
+    private function assertMatchesRegexp(string $pattern, string $string, string $message = ''): void
+    {
+        // @TODO remove when package require phpunit 9.1
+        if (function_exists('PHPUnit\Framework\assertMatchesRegularExpression')) {
+            $this->assertMatchesRegularExpression($pattern, $string, $message);
+        } else {
+            $this->assertRegExp($pattern, $string, $message);
+        }
     }
 }
