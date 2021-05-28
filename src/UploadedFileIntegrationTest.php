@@ -25,11 +25,6 @@ abstract class UploadedFileIntegrationTest extends BaseTest
      */
     abstract public function createSubject();
 
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-    }
-
     protected function setUp(): void
     {
         $this->uploadedFile = $this->createSubject();
