@@ -28,7 +28,7 @@
     </testsuite>
 
     <testsuite name="Nyholm">
-        <directory>./vendor/nyholm/psr7/tests/Integration/</directory>
+        <directory>./tests/Nyholm/</directory>
     </testsuite>
   </testsuites>
 
