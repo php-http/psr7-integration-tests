@@ -25,12 +25,6 @@ abstract class UploadedFileIntegrationTest extends BaseTest
      */
     abstract public function createSubject();
 
-    public static function setUpBeforeClass(): void
-    {
-        @mkdir('.tmp');
-        parent::setUpBeforeClass();
-    }
-
     protected function setUp(): void
     {
         $this->uploadedFile = $this->createSubject();
@@ -56,7 +50,7 @@ abstract class UploadedFileIntegrationTest extends BaseTest
 
         $file = $this->createSubject();
         $this->expectException(\RuntimeException::class);
-        $file->moveTo(sys_get_temp_dir().'/foo');
+        $file->moveTo(sys_get_temp_dir().'/'.uniqid('foo', true));
         $file->getStream();
     }
 
@@ -81,7 +75,7 @@ abstract class UploadedFileIntegrationTest extends BaseTest
         }
 
         $file = $this->createSubject();
-        $targetPath = '.tmp/'.uniqid('foo', true);
+        $targetPath = sys_get_temp_dir().'/'.uniqid('foo', true);
 
         $this->assertFalse(is_file($targetPath));
         $file->moveTo($targetPath);
@@ -96,8 +90,8 @@ abstract class UploadedFileIntegrationTest extends BaseTest
         $this->expectException(\RuntimeException::class);
 
         $file = $this->createSubject();
-        $file->moveTo('.tmp/'.uniqid('foo', true));
-        $file->moveTo('.tmp/'.uniqid('foo', true));
+        $file->moveTo(sys_get_temp_dir().'/'.uniqid('foo', true));
+        $file->moveTo(sys_get_temp_dir().'/'.uniqid('foo', true));
     }
 
     public function testGetSize()
