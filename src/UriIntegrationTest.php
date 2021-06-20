@@ -226,4 +226,14 @@ abstract class UriIntegrationTest extends BaseTest
         $this->assertInstanceOf(UriInterface::class, $uri);
         $this->assertSame($expected, (string) $uri);
     }
+
+    public function testPathWithMultipleSlashes()
+    {
+        $expected = 'http://example.org//valid///path';
+        $uri = $this->createUri($expected);
+
+        $this->assertInstanceOf(UriInterface::class, $uri);
+        $this->assertSame($expected, (string) $uri);
+        $this->assertSame('//valid///path', $uri->getPath());
+    }
 }
