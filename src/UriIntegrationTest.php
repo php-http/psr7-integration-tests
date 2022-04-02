@@ -229,6 +229,10 @@ abstract class UriIntegrationTest extends BaseTest
 
     public function testPathWithMultipleSlashes()
     {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
         $expected = 'http://example.org//valid///path';
         $uri = $this->createUri($expected);
 
