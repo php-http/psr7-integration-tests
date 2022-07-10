@@ -76,7 +76,7 @@ abstract class BaseTest extends TestCase
         }
 
         if (class_exists(GuzzleStream::class)) {
-            return \GuzzleHttp\Psr7\stream_for($data);
+            return \GuzzleHttp\Psr7\Utils::streamFor($data);
         }
 
         if (class_exists(ZendStream::class)) {
