@@ -9,7 +9,7 @@ class UploadedFileTest extends UploadedFileIntegrationTest
 {
     public function createSubject()
     {
-        $stream = \GuzzleHttp\Psr7\stream_for('Foobar');
+        $stream = \GuzzleHttp\Psr7\Utils::streamFor('Foobar');
 
         return new UploadedFile($stream, $stream->getSize(), UPLOAD_ERR_OK, 'filename.txt', 'text/plain');
     }

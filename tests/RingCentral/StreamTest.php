@@ -8,6 +8,6 @@ class StreamTest extends StreamIntegrationTest
 {
     public function createStream($data)
     {
-        return \RingCentral\Psr7\stream_for($data);
+        return \RingCentral\Psr7\Utils::streamFor($data);
     }
 }
