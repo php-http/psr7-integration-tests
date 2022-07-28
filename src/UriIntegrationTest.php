@@ -238,6 +238,13 @@ abstract class UriIntegrationTest extends BaseTest
 
         $this->assertInstanceOf(UriInterface::class, $uri);
         $this->assertSame($expected, (string) $uri);
-        $this->assertSame('//valid///path', $uri->getPath());
+        $this->assertSame('/valid///path', $uri->getPath());
+    }
+
+    public function testProperlyTrimsLeadingSlashesToPreventXSS()
+    {
+        $url = 'http://example.org//zend.com';
+        $uri = $this->createUri($url);
+        $this->assertSame('http://example.org/zend.com', (string) $uri);
     }
 }
