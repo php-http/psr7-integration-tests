@@ -255,7 +255,7 @@ abstract class UriIntegrationTest extends BaseTest
 
         return [
             'expected' => $expected,
-            'uri'      => $uri,
+            'uri' => $uri,
         ];
     }
 
