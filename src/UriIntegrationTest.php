@@ -233,18 +233,38 @@ abstract class UriIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
+        $expected = 'http://example.org/valid///path';
+        $uri = $this->createUri($expected);
+
+        $this->assertInstanceOf(UriInterface::class, $uri);
+        $this->assertSame('/valid///path', $uri->getPath());
+        $this->assertSame($expected, (string) $uri);
+    }
+
+    public function testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
         $expected = 'http://example.org//valid///path';
         $uri = $this->createUri($expected);
 
         $this->assertInstanceOf(UriInterface::class, $uri);
-        $this->assertSame($expected, (string) $uri);
         $this->assertSame('/valid///path', $uri->getPath());
+
+        return [
+            'expected' => $expected,
+            'uri'      => $uri,
+        ];
     }
 
-    public function testProperlyTrimsLeadingSlashesToPreventXSS()
+    /**
+     * @depends testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS
+     * @psalm-param array{expected: non-empty-string, uri: UriInterface} $test
+     */
+    public function testStringRepresentationWithMultipleSlashes(array $test)
     {
-        $url = 'http://example.org//zend.com';
-        $uri = $this->createUri($url);
-        $this->assertSame('http://example.org/zend.com', (string) $uri);
+        $this->assertSame($test['expected'], (string) $test['uri']);
     }
 }
