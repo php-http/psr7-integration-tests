@@ -171,6 +171,11 @@ abstract class RequestIntegrationTest extends BaseTest
     }
 
     /**
+     * Tests that getRequestTarget(), when using the default behavior of
+     * displaying the origin-form, normalizes multiple leading slashes in the
+     * path to a single slash. This is done to prevent URL poisoning and/or XSS
+     * issues.
+     *
      * @see UriIntegrationTest::testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS
      */
     public function testGetRequestTargetInOriginFormNormalizesUriWithMultipleLeadingSlashesInPath()
