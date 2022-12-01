@@ -233,11 +233,50 @@ abstract class UriIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
+        $expected = 'http://example.org/valid///path';
+        $uri = $this->createUri($expected);
+
+        $this->assertInstanceOf(UriInterface::class, $uri);
+        $this->assertSame('/valid///path', $uri->getPath());
+        $this->assertSame($expected, (string) $uri);
+    }
+
+    /**
+     * Tests that getPath() normalizes multiple leading slashes to a single
+     * slash. This is done to ensure that when a path is used in isolation from
+     * the authority, it will not cause URL poisoning and/or XSS issues.
+     *
+     * @see https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3257
+     * @psalm-param array{expected: non-empty-string, uri: UriInterface} $test
+     */
+    public function testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
         $expected = 'http://example.org//valid///path';
         $uri = $this->createUri($expected);
 
         $this->assertInstanceOf(UriInterface::class, $uri);
-        $this->assertSame($expected, (string) $uri);
-        $this->assertSame('//valid///path', $uri->getPath());
+        $this->assertSame('/valid///path', $uri->getPath());
+
+        return [
+            'expected' => $expected,
+            'uri' => $uri,
+        ];
+    }
+
+    /**
+     * Tests that the full string representation of a URI that includes multiple
+     * leading slashes in the path is presented verbatim (in contrast to what is
+     * provided when calling getPath()).
+     *
+     * @depends testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS
+     * @psalm-param array{expected: non-empty-string, uri: UriInterface} $test
+     */
+    public function testStringRepresentationWithMultipleSlashes(array $test)
+    {
+        $this->assertSame($test['expected'], (string) $test['uri']);
     }
 }

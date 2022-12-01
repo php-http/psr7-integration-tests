@@ -169,4 +169,25 @@ abstract class RequestIntegrationTest extends BaseTest
         $request2 = $request->withUri($this->buildUri('http://www.bar.com/foo'), true);
         $this->assertEquals($host, $request2->getHeaderLine('host'));
     }
+
+    /**
+     * Tests that getRequestTarget(), when using the default behavior of
+     * displaying the origin-form, normalizes multiple leading slashes in the
+     * path to a single slash. This is done to prevent URL poisoning and/or XSS
+     * issues.
+     *
+     * @see UriIntegrationTest::testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS
+     */
+    public function testGetRequestTargetInOriginFormNormalizesUriWithMultipleLeadingSlashesInPath()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $url = 'http://example.org//valid///path';
+        $request = $this->request->withUri($this->buildUri($url));
+        $requestTarget = $request->getRequestTarget();
+
+        $this->assertSame('/valid///path', $requestTarget);
+    }
 }
