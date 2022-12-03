@@ -21,7 +21,7 @@
     "require-dev": {
         "guzzlehttp/psr7": "^2.4",
         "laminas/laminas-diactoros": "^2.22",
-        "nyholm/psr7": "^1.0",
+        "nyholm/psr7": "^1.5",
         "ringcentral/psr7": "^1.2",
         "slim/psr7": "dev-master"
     },
