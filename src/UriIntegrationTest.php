@@ -78,6 +78,9 @@ abstract class UriIntegrationTest extends BaseTest
 
         $uri = $this->createUri('http://user:foo@bar.com/');
         $this->assertEquals('user:foo@bar.com', $uri->getAuthority());
+
+        $uri = $this->createUri('http://bar.com:81/');
+        $this->assertEquals('bar.com:81', $uri->getAuthority());
     }
 
     public function testUserInfo()
