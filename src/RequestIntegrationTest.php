@@ -20,7 +20,7 @@ abstract class RequestIntegrationTest extends BaseTest
     /**
      * @var RequestInterface
      */
-    private $request;
+    protected $request;
 
     /**
      * @return RequestInterface that is used in the tests
