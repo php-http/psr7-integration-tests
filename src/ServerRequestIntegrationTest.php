@@ -7,13 +7,8 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-abstract class ServerRequestIntegrationTest extends BaseTest
+abstract class ServerRequestIntegrationTest extends RequestIntegrationTest
 {
-    /**
-     * @var array with functionName => reason
-     */
-    protected $skippedTests = [];
-
     /**
      * @var ServerRequestInterface
      */
@@ -26,6 +21,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->serverRequest = $this->createSubject();
     }
 
