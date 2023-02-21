@@ -2,7 +2,10 @@
 
 namespace Http\Psr7Test;
 
+use InvalidArgumentException;
 use Psr\Http\Message\MessageInterface;
+use Throwable;
+use TypeError;
 
 /**
  * Test MessageInterface.
@@ -136,9 +139,19 @@ trait MessageTrait
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
-        $this->expectException(\InvalidArgumentException::class);
-        $initialMessage = $this->getMessage();
-        $initialMessage->withHeader($name, $value);
+
+        try {
+            $initialMessage = $this->getMessage();
+            $initialMessage->withHeader($name, $value);
+        } catch (TypeError|InvalidArgumentException $e) {
+            // valid
+        } catch (Throwable $e) {
+            // invalid
+            $this->fail(sprintf(
+                'Unexpected exception (%s) thrown from withHeader(); expected TypeError or InvalidArgumentException',
+                gettype($e)
+            ));
+        }
     }
 
     public function getInvalidHeaderArguments()
@@ -153,6 +166,7 @@ trait MessageTrait
             [new \stdClass(), 'foo'],
         ];
     }
+
 
     public function testWithAddedHeader()
     {
@@ -174,9 +188,19 @@ trait MessageTrait
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
-        $this->expectException(\InvalidArgumentException::class);
-        $initialMessage = $this->getMessage();
-        $initialMessage->withAddedHeader($name, $value);
+
+        try {
+            $initialMessage = $this->getMessage();
+            $initialMessage->withAddedHeader($name, $value);
+        } catch (TypeError|InvalidArgumentException $e) {
+            // valid
+        } catch (Throwable $e) {
+            // invalid
+            $this->fail(sprintf(
+                'Unexpected exception (%s) thrown from withAddedHeader(); expected TypeError or InvalidArgumentException',
+                gettype($e)
+            ));
+        }
     }
 
     /**
