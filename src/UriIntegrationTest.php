@@ -69,7 +69,7 @@ abstract class UriIntegrationTest extends BaseTest
         }
     }
 
-    public function getInvalidSchemaArguments()
+    public static function getInvalidSchemaArguments()
     {
         return [
             [true],
@@ -155,7 +155,7 @@ abstract class UriIntegrationTest extends BaseTest
     /**
      * @dataProvider getPaths
      */
-    public function testPath(UriInterface $uri, $expected)
+    public function testPath(UriInterface $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
@@ -164,22 +164,24 @@ abstract class UriIntegrationTest extends BaseTest
         $this->assertSame($expected, $uri->getPath());
     }
 
-    public function getPaths()
+    public static function getPaths()
     {
+        $test = new static('uriprovider');
+
         return [
-            [$this->createUri('http://www.foo.com/'), '/'],
-            [$this->createUri('http://www.foo.com'), ''],
-            [$this->createUri('foo/bar'), 'foo/bar'],
-            [$this->createUri('http://www.foo.com/foo bar'), '/foo%20bar'],
-            [$this->createUri('http://www.foo.com/foo%20bar'), '/foo%20bar'],
-            [$this->createUri('http://www.foo.com/foo%2fbar'), '/foo%2fbar'],
+            [$test->createUri('http://www.foo.com/'), '/'],
+            [$test->createUri('http://www.foo.com'), ''],
+            [$test->createUri('foo/bar'), 'foo/bar'],
+            [$test->createUri('http://www.foo.com/foo bar'), '/foo%20bar'],
+            [$test->createUri('http://www.foo.com/foo%20bar'), '/foo%20bar'],
+            [$test->createUri('http://www.foo.com/foo%2fbar'), '/foo%2fbar'],
         ];
     }
 
     /**
      * @dataProvider getQueries
      */
-    public function testQuery(UriInterface $uri, $expected)
+    public function testQuery(UriInterface $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
@@ -188,21 +190,23 @@ abstract class UriIntegrationTest extends BaseTest
         $this->assertSame($expected, $uri->getQuery());
     }
 
-    public function getQueries()
+    public static function getQueries()
     {
+        $test = new static('uriprovider');
+
         return [
-            [$this->createUri('http://www.foo.com'), ''],
-            [$this->createUri('http://www.foo.com?'), ''],
-            [$this->createUri('http://www.foo.com?foo=bar'), 'foo=bar'],
-            [$this->createUri('http://www.foo.com?foo=bar%26baz'), 'foo=bar%26baz'],
-            [$this->createUri('http://www.foo.com?foo=bar&baz=biz'), 'foo=bar&baz=biz'],
+            [$test->createUri('http://www.foo.com'), ''],
+            [$test->createUri('http://www.foo.com?'), ''],
+            [$test->createUri('http://www.foo.com?foo=bar'), 'foo=bar'],
+            [$test->createUri('http://www.foo.com?foo=bar%26baz'), 'foo=bar%26baz'],
+            [$test->createUri('http://www.foo.com?foo=bar&baz=biz'), 'foo=bar&baz=biz'],
         ];
     }
 
     /**
      * @dataProvider getFragments
      */
-    public function testFragment(UriInterface $uri, $expected)
+    public function testFragment(UriInterface $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
@@ -211,13 +215,15 @@ abstract class UriIntegrationTest extends BaseTest
         $this->assertEquals($expected, $uri->getFragment());
     }
 
-    public function getFragments()
+    public static function getFragments()
     {
+        $test = new static('uriprovider');
+
         return [
-            [$this->createUri('http://www.foo.com'), ''],
-            [$this->createUri('http://www.foo.com#'), ''],
-            [$this->createUri('http://www.foo.com#foo'), 'foo'],
-            [$this->createUri('http://www.foo.com#foo%20bar'), 'foo%20bar'],
+            [$test->createUri('http://www.foo.com'), ''],
+            [$test->createUri('http://www.foo.com#'), ''],
+            [$test->createUri('http://www.foo.com#foo'), 'foo'],
+            [$test->createUri('http://www.foo.com#foo%20bar'), 'foo%20bar'],
         ];
     }
 

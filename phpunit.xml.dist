@@ -1,48 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit backupGlobals="false"
-  backupStaticAttributes="true"
-  colors="true"
-  convertErrorsToExceptions="true"
-  convertNoticesToExceptions="true"
-  convertWarningsToExceptions="true"
-  processIsolation="false"
-  stopOnFailure="false"
-  bootstrap="vendor/autoload.php"
-  >
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    backupGlobals="false"
+    colors="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    bootstrap="vendor/autoload.php"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+    cacheDirectory=".phpunit.cache"
+    backupStaticProperties="true"
+>
+  <coverage>
+    <include>
+      <directory>./src</directory>
+    </include>
+  </coverage>
   <testsuites>
     <testsuite name="Guzzle">
       <directory>./tests/Guzzle/</directory>
     </testsuite>
-
     <testsuite name="RingCentral">
       <directory>./tests/RingCentral/</directory>
     </testsuite>
-
     <testsuite name="Slim">
-        <directory>./tests/Slim/</directory>
+      <directory>./tests/Slim/</directory>
     </testsuite>
-
     <testsuite name="Laminas">
-        <directory>./tests/Laminas/</directory>
+      <directory>./tests/Laminas/</directory>
     </testsuite>
-
     <testsuite name="Nyholm">
-        <directory>./vendor/nyholm/psr7/tests/Integration/</directory>
+      <directory>./vendor/nyholm/psr7/tests/Integration/</directory>
     </testsuite>
 
     <testsuite name="HttpSoft">
         <directory>./vendor/httpsoft/http-message/tests/Integration/</directory>
     </testsuite>
   </testsuites>
-
-  <filter>
-    <whitelist>
-      <directory>./</directory>
-      <exclude>
-        <directory>./Tests</directory>
-        <directory>./vendor</directory>
-      </exclude>
-    </whitelist>
-  </filter>
 </phpunit>

@@ -13,9 +13,15 @@ use Laminas\Diactoros\Uri as LaminasUri;
 use Laminas\Diactoros\UploadedFile as LaminasUploadedFile;
 use Nyholm\Psr7\Factory\Psr17Factory as NyholmFactory;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\UriInterface;
 use RingCentral\Psr7\Uri as RingCentralUri;
 use function RingCentral\Psr7\stream_for as ring_central_stream_for;
+use GuzzleHttp\Psr7\Utils as GuzzleUtils;
+use Http\Message\StreamFactory as HttplugStreamFactory;
+use Http\Message\UriFactory as HttplugUriFactory;
+use Psr\Http\Message\StreamFactoryInterface as PsrStreamFactoryInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface as PsrUploadedFileFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface as PsrUriFactoryInterface;
+use Psr\Http\Message\UriInterface as PsrUriInterface;
 use Slim\Psr7\Uri as SlimUri;
 use Slim\Psr7\Factory\UriFactory as SlimUriFactory;
 use Slim\Psr7\Factory\StreamFactory as SlimStreamFactory;
@@ -36,18 +42,18 @@ abstract class BaseTest extends TestCase
         if (defined('URI_FACTORY')) {
             $factoryClass = URI_FACTORY;
             $factory = new $factoryClass();
-            if ($factory instanceof \Http\Message\UriFactory) {
+            if ($factory instanceof HttplugUriFactory) {
                 return $factory->createUri($uri);
             }
-            if ($factory instanceof \Psr\Http\Message\UriFactoryInterface) {
-                if ($uri instanceof UriInterface) {
+            if ($factory instanceof PsrUriFactoryInterface) {
+                if ($uri instanceof PsrUriInterface) {
                     return $uri;
                 }
 
                 return $factory->createUri($uri);
             }
 
-            throw new \RuntimeException('Constant "URI_FACTORY" must be a reference to a Http\Message\UriFactory or \Psr\Http\Message\UriFactoryInterface');
+            throw new \RuntimeException('Constant "URI_FACTORY" must be a reference to a '.HttplugUriFactory::class.' or '.PsrUriFactoryInterface::class);
         }
 
         if (class_exists(HttpSoftUri::class)) {
@@ -86,10 +92,10 @@ abstract class BaseTest extends TestCase
         if (defined('STREAM_FACTORY')) {
             $factoryClass = STREAM_FACTORY;
             $factory = new $factoryClass();
-            if ($factory instanceof \Http\Message\StreamFactory) {
+            if ($factory instanceof HttplugStreamFactory) {
                 return $factory->createStream($data);
             }
-            if ($factory instanceof \Psr\Http\Message\StreamFactoryInterface) {
+            if ($factory instanceof PsrStreamFactoryInterface) {
                 if (is_string($data)) {
                     return $factory->createStream($data);
                 }
@@ -97,11 +103,11 @@ abstract class BaseTest extends TestCase
                 return $factory->createStreamFromResource($data);
             }
 
-            throw new \RuntimeException('Constant "STREAM_FACTORY" must be a reference to a Http\Message\StreamFactory or \Psr\Http\Message\StreamFactoryInterface');
+            throw new \RuntimeException('Constant "STREAM_FACTORY" must be a reference to a '.HttplugStreamFactory::class.' or '.PsrStreamFactoryInterface::class);
         }
 
         if (class_exists(GuzzleStream::class)) {
-            return \GuzzleHttp\Psr7\Utils::streamFor($data);
+            return GuzzleUtils::streamFor($data);
         }
 
         $factory = null;
@@ -137,8 +143,8 @@ abstract class BaseTest extends TestCase
         if (defined('UPLOADED_FILE_FACTORY')) {
             $factoryClass = UPLOADED_FILE_FACTORY;
             $factory = new $factoryClass();
-            if (!$factory instanceof \Psr\Http\Message\UploadedFileFactoryInterface) {
-                throw new \RuntimeException('Constant "UPLOADED_FILE_FACTORY" must be a reference to a Psr\Http\Message\UploadedFileFactoryInterface');
+            if (!$factory instanceof PsrUploadedFileFactoryInterface) {
+                throw new \RuntimeException('Constant "UPLOADED_FILE_FACTORY" must be a reference to a '.PsrUploadedFileFactoryInterface::class);
             }
 
             $stream = $this->buildStream($data);

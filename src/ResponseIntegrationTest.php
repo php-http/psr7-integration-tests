@@ -80,7 +80,7 @@ abstract class ResponseIntegrationTest extends BaseTest
         }
     }
 
-    public function getInvalidStatusCodeArguments()
+    public static function getInvalidStatusCodeArguments()
     {
         return [
             'true' => [true],

@@ -1,5 +1,6 @@
 /.tmp
 /.phpunit.result.cache
+/.phpunit.cache
 /behat.yml
 /build/
 /composer.lock

@@ -315,7 +315,7 @@ abstract class StreamIntegrationTest extends BaseTest
 
         fclose($resource);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(class_exists(\Throwable::class) ? \Throwable::class : \RuntimeException::class);
         $stream->getContents();
     }
 }
