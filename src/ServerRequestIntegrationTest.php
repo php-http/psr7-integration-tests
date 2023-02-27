@@ -103,7 +103,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         $this->assertEquals($value, $new->getParsedBody());
     }
 
-    public function validParsedBodyParams()
+    public static function validParsedBodyParams()
     {
         return [
             [null],
@@ -129,7 +129,7 @@ abstract class ServerRequestIntegrationTest extends BaseTest
         }
     }
 
-    public function invalidParsedBodyParams()
+    public static function invalidParsedBodyParams()
     {
         return [
             [4711],

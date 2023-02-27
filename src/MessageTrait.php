@@ -141,7 +141,7 @@ trait MessageTrait
         $initialMessage->withHeader($name, $value);
     }
 
-    public function getInvalidHeaderArguments()
+    public static function getInvalidHeaderArguments()
     {
         return [
             [[], 'foo'],
@@ -254,11 +254,6 @@ trait MessageTrait
 
     private function assertMatchesRegexp(string $pattern, string $string, string $message = ''): void
     {
-        // @TODO remove when package require phpunit 9.1
-        if (function_exists('PHPUnit\Framework\assertMatchesRegularExpression')) {
-            $this->assertMatchesRegularExpression($pattern, $string, $message);
-        } else {
-            $this->assertRegExp($pattern, $string, $message);
-        }
+        $this->assertMatchesRegularExpression($pattern, $string, $message);
     }
 }

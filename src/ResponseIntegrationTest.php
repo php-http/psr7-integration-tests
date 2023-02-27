@@ -62,7 +62,7 @@ abstract class ResponseIntegrationTest extends BaseTest
         $this->response->withStatus($statusCode);
     }
 
-    public function getInvalidStatusCodeArguments()
+    public static function getInvalidStatusCodeArguments()
     {
         return [
             [true],

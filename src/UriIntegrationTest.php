@@ -51,7 +51,7 @@ abstract class UriIntegrationTest extends BaseTest
         $this->createUri('/')->withScheme($schema);
     }
 
-    public function getInvalidSchemaArguments()
+    public static function getInvalidSchemaArguments()
     {
         return [
             [true],
@@ -134,69 +134,69 @@ abstract class UriIntegrationTest extends BaseTest
     /**
      * @dataProvider getPaths
      */
-    public function testPath(UriInterface $uri, $expected)
+    public function testPath(string $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->assertSame($expected, $uri->getPath());
+        $this->assertSame($expected, $this->createUri($uri)->getPath());
     }
 
-    public function getPaths()
+    public static function getPaths()
     {
         return [
-            [$this->createUri('http://www.foo.com/'), '/'],
-            [$this->createUri('http://www.foo.com'), ''],
-            [$this->createUri('foo/bar'), 'foo/bar'],
-            [$this->createUri('http://www.foo.com/foo bar'), '/foo%20bar'],
-            [$this->createUri('http://www.foo.com/foo%20bar'), '/foo%20bar'],
-            [$this->createUri('http://www.foo.com/foo%2fbar'), '/foo%2fbar'],
+            ['http://www.foo.com/', '/'],
+            ['http://www.foo.com', ''],
+            ['foo/bar', 'foo/bar'],
+            ['http://www.foo.com/foo bar', '/foo%20bar'],
+            ['http://www.foo.com/foo%20bar', '/foo%20bar'],
+            ['http://www.foo.com/foo%2fbar', '/foo%2fbar'],
         ];
     }
 
     /**
      * @dataProvider getQueries
      */
-    public function testQuery(UriInterface $uri, $expected)
+    public function testQuery(string $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->assertSame($expected, $uri->getQuery());
+        $this->assertSame($expected, $this->createUri($uri)->getQuery());
     }
 
-    public function getQueries()
+    public static function getQueries()
     {
         return [
-            [$this->createUri('http://www.foo.com'), ''],
-            [$this->createUri('http://www.foo.com?'), ''],
-            [$this->createUri('http://www.foo.com?foo=bar'), 'foo=bar'],
-            [$this->createUri('http://www.foo.com?foo=bar%26baz'), 'foo=bar%26baz'],
-            [$this->createUri('http://www.foo.com?foo=bar&baz=biz'), 'foo=bar&baz=biz'],
+            ['http://www.foo.com', ''],
+            ['http://www.foo.com?', ''],
+            ['http://www.foo.com?foo=bar', 'foo=bar'],
+            ['http://www.foo.com?foo=bar%26baz', 'foo=bar%26baz'],
+            ['http://www.foo.com?foo=bar&baz=biz', 'foo=bar&baz=biz'],
         ];
     }
 
     /**
      * @dataProvider getFragments
      */
-    public function testFragment(UriInterface $uri, $expected)
+    public function testFragment(string $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->assertEquals($expected, $uri->getFragment());
+        $this->assertEquals($expected, $this->createUri($uri)->getFragment());
     }
 
-    public function getFragments()
+    public static function getFragments()
     {
         return [
-            [$this->createUri('http://www.foo.com'), ''],
-            [$this->createUri('http://www.foo.com#'), ''],
-            [$this->createUri('http://www.foo.com#foo'), 'foo'],
-            [$this->createUri('http://www.foo.com#foo%20bar'), 'foo%20bar'],
+            ['http://www.foo.com', ''],
+            ['http://www.foo.com#', ''],
+            ['http://www.foo.com#foo', 'foo'],
+            ['http://www.foo.com#foo%20bar', 'foo%20bar'],
         ];
     }
 

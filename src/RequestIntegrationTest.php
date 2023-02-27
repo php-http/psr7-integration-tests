@@ -100,7 +100,7 @@ abstract class RequestIntegrationTest extends BaseTest
         $this->request->withMethod($method);
     }
 
-    public function getInvalidMethods()
+    public static function getInvalidMethods()
     {
         return [
             [null],

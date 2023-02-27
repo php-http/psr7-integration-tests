@@ -16,7 +16,7 @@ class RequestTest extends RequestIntegrationTest
         return new Request('GET', '/');
     }
 
-    public function getInvalidHeaderArguments()
+    public static function getInvalidHeaderArguments()
     {
         $testCases = parent::getInvalidHeaderArguments();
 
