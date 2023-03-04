@@ -5,17 +5,17 @@ namespace Http\Psr7Test;
 use GuzzleHttp\Psr7\Stream as GuzzleStream;
 use GuzzleHttp\Psr7\UploadedFile as GuzzleUploadedFile;
 use GuzzleHttp\Psr7\Uri as GuzzleUri;
-use GuzzleHttp\Psr7\Utils;
-use Http\Message\StreamFactory;
-use Http\Message\UriFactory;
+use GuzzleHttp\Psr7\Utils as GuzzleUtils;
+use Http\Message\StreamFactory as HttpPlugStreamFactory;
+use Http\Message\UriFactory as PsrUriFactory;
 use Laminas\Diactoros\Stream as ZendStream;
 use Laminas\Diactoros\Uri as ZendUri;
 use Laminas\Diactoros\UploadedFile as ZendUploadedFile;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\UploadedFileFactoryInterface;
-use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
+use Psr\Http\Message\StreamFactoryInterface as PsrStreamFactoryInterface;
+use Psr\Http\Message\UploadedFileFactoryInterface as PsrUploadedFileFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface as PsrUriFactoryInterface;
+use Psr\Http\Message\UriInterface as PsrUriInterface;
 use Slim\Psr7\Uri as SlimUri;
 
 /**
@@ -33,11 +33,11 @@ abstract class BaseTest extends TestCase
         if (defined('URI_FACTORY')) {
             $factoryClass = URI_FACTORY;
             $factory = new $factoryClass();
-            if ($factory instanceof UriFactory) {
+            if ($factory instanceof PsrUriFactory) {
                 return $factory->createUri($uri);
             }
-            if ($factory instanceof UriFactoryInterface) {
-                if ($uri instanceof UriInterface) {
+            if ($factory instanceof PsrUriFactoryInterface) {
+                if ($uri instanceof PsrUriInterface) {
                     return $uri;
                 }
 
@@ -67,10 +67,10 @@ abstract class BaseTest extends TestCase
         if (defined('STREAM_FACTORY')) {
             $factoryClass = STREAM_FACTORY;
             $factory = new $factoryClass();
-            if ($factory instanceof StreamFactory) {
+            if ($factory instanceof HttpPlugStreamFactory) {
                 return $factory->createStream($data);
             }
-            if ($factory instanceof StreamFactoryInterface) {
+            if ($factory instanceof PsrStreamFactoryInterface) {
                 if (is_string($data)) {
                     return $factory->createStream($data);
                 } else {
@@ -82,7 +82,7 @@ abstract class BaseTest extends TestCase
         }
 
         if (class_exists(GuzzleStream::class)) {
-            return Utils::streamFor($data);
+            return GuzzleUtils::streamFor($data);
         }
 
         if (class_exists(ZendStream::class)) {
@@ -97,7 +97,7 @@ abstract class BaseTest extends TestCase
         if (defined('UPLOADED_FILE_FACTORY')) {
             $factoryClass = UPLOADED_FILE_FACTORY;
             $factory = new $factoryClass();
-            if (!$factory instanceof UploadedFileFactoryInterface) {
+            if (!$factory instanceof PsrUploadedFileFactoryInterface) {
                 throw new \RuntimeException('Constant "UPLOADED_FILE_FACTORY" must be a reference to a Psr\Http\Message\UploadedFileFactoryInterface');
             }
 
