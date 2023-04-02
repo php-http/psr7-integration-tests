@@ -8,20 +8,22 @@
 
 | PSR7 Implementation | Status        |
 | ------------------- |:-------------:|
-| Guzzle              | [![Guzzle](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/1)](https://travis-ci.org/php-http/psr7-integration-tests)      |
-| Laminas             | [![Laminas](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/2)](https://travis-ci.org/php-http/psr7-integration-tests)        |
-| Slim                | [![Slim](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/3)](https://travis-ci.org/php-http/psr7-integration-tests)        |
-| Nyholm              | [![Nyholm](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/4)](https://travis-ci.org/php-http/psr7-integration-tests)      |
-| RingCentral         | [![RingCentral](https://travis-matrix-badges.herokuapp.com/repos/php-http/psr7-integration-tests/branches/master/5)](https://travis-ci.org/php-http/psr7-integration-tests)      |
+| Guzzle              | [![Guzzle](https://github.com/php-http/psr7-integration-tests/actions/workflows/guzzle.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/guzzle.yml)                |
+| Laminas             | [![Laminas](https://github.com/php-http/psr7-integration-tests/actions/workflows/laminas.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/laminas.yml)             |
+| Slim                | [![Slim](https://github.com/php-http/psr7-integration-tests/actions/workflows/slim.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/slim.yml)                      |
+| Nyholm              | [![Nyholm](https://github.com/php-http/psr7-integration-tests/actions/workflows/nyholm.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/nyholm.yml)                |
+| RingCentral         | [![RingCentral](https://github.com/php-http/psr7-integration-tests/actions/workflows/ringcentral.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/ringcentral.yml) |
+
 
 ## Install
 
-Via Composer
+To use the integration tests with a PSR-7 implementation, add this package to the dev dependencies:
 
 ``` bash
 $ composer require --dev php-http/psr7-integration-tests
 ```
 
+Then set up phpunit to run the tests for your implementation.
 
 ## Documentation
 
@@ -30,14 +32,26 @@ Please see the [official documentation](http://docs.php-http.org/en/latest).
 
 ## Testing
 
+This repository also is set up to test a couple of implementations directly. You need to install dependencies from source for the tests to work:
+
 ``` bash
-$ composer test
+$ composer update --prefer-source
 ```
+
+**Note:** If you already have the sources installed, you need to delete the vendor folder before running the above command.
+
+Run the test suite for one implementation with:
+
+``` bash
+$ composer test -- --testsuite <name>
+```
+
+The names are `Guzzle`, `Laminas`, `Slim`, `Nyholm`, `RingCentral`.
 
 It is also possible to exclude tests that require a live internet connection:
 
 ``` bash
-$ composer test -- --exclude-group internet
+$ composer test -- --testsuite <name> --exclude-group internet
 ```
 
 ## Contributing

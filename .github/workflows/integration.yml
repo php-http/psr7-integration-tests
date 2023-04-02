@@ -1,0 +1,40 @@
+on:
+  workflow_call:
+    inputs:
+      php:
+        required: true
+        type: string
+      suite:
+        required: true
+        type: string
+      package:
+        required: true
+        type: string
+
+jobs:
+  latest:
+    name: ${{ inputs.suite }} PHP ${{ inputs.php }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php }}
+          tools: composer
+          coverage: none
+
+      - name: Install dependencies
+        # we need to remove all dev dependencies to avoid failures due to php version constraints
+        # then we install the dependencies
+        # and finally require the implementation to test with source flag (to get integration test cases that might be excluded in git-attributes)
+        run: |
+          composer remove --dev guzzlehttp/psr7 laminas/laminas-diactoros nyholm/psr7 ringcentral/psr7 slim/psr7 --no-update
+          composer update --no-interaction --no-progress
+          composer require ${{ inputs.package }} --no-interaction --no-progress --prefer-source
+
+      - name: Execute tests
+        run: composer test -- --testsuite ${{ inputs.suite }}
