@@ -247,6 +247,7 @@ abstract class UriIntegrationTest extends BaseTest
      * the authority, it will not cause URL poisoning and/or XSS issues.
      *
      * @see https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3257
+     *
      * @psalm-param array{expected: non-empty-string, uri: UriInterface} $test
      */
     public function testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS()
@@ -273,6 +274,7 @@ abstract class UriIntegrationTest extends BaseTest
      * provided when calling getPath()).
      *
      * @depends testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS
+     *
      * @psalm-param array{expected: non-empty-string, uri: UriInterface} $test
      */
     public function testStringRepresentationWithMultipleSlashes(array $test)
