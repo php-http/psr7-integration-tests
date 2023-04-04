@@ -3,6 +3,7 @@
 namespace Http\Psr7Test;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\AssertionFailedError;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use TypeError;
@@ -63,6 +64,10 @@ abstract class ResponseIntegrationTest extends BaseTest
 
         try {
             $this->response->withStatus($statusCode);
+            $this->fail('withStatus() should have raised exception on invalid argument');
+        } catch (AssertionFailedError $e) {
+            // invalid argument not caught
+            throw $e;
         } catch (InvalidArgumentException|TypeError $e) {
             // valid
             $this->assertTrue($e instanceof Throwable);

@@ -3,6 +3,7 @@
 namespace Http\Psr7Test;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\AssertionFailedError;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 use Throwable;
@@ -101,6 +102,10 @@ abstract class RequestIntegrationTest extends BaseTest
 
         try {
             $this->request->withMethod($method);
+            $this->fail('withMethod() should have raised exception on invalid argument');
+        } catch (AssertionFailedError $e) {
+            // invalid argument not caught
+            throw $e;
         } catch (InvalidArgumentException|TypeError $e) {
             // valid
             $this->assertTrue($e instanceof Throwable);

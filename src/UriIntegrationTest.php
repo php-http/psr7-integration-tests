@@ -3,6 +3,7 @@
 namespace Http\Psr7Test;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\AssertionFailedError;
 use Psr\Http\Message\UriInterface;
 use Throwable;
 use TypeError;
@@ -52,6 +53,10 @@ abstract class UriIntegrationTest extends BaseTest
 
         try {
             $this->createUri('/')->withScheme($schema);
+            $this->fail('withScheme() should have raised exception on invalid argument');
+        } catch (AssertionFailedError $e) {
+            // invalid argument not caught
+            throw $e;
         } catch (InvalidArgumentException|TypeError $e) {
             // valid
             $this->assertTrue($e instanceof Throwable);
