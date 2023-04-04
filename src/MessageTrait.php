@@ -167,7 +167,6 @@ trait MessageTrait
         ];
     }
 
-
     public function testWithAddedHeader()
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
