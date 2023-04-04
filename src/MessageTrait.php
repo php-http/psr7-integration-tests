@@ -145,6 +145,7 @@ trait MessageTrait
             $initialMessage->withHeader($name, $value);
         } catch (TypeError|InvalidArgumentException $e) {
             // valid
+            $this->assertTrue($e instanceof Throwable);
         } catch (Throwable $e) {
             // invalid
             $this->fail(sprintf(
@@ -193,6 +194,7 @@ trait MessageTrait
             $initialMessage->withAddedHeader($name, $value);
         } catch (TypeError|InvalidArgumentException $e) {
             // valid
+            $this->assertTrue($e instanceof Throwable);
         } catch (Throwable $e) {
             // invalid
             $this->fail(sprintf(

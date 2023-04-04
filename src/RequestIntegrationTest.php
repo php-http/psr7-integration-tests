@@ -103,6 +103,7 @@ abstract class RequestIntegrationTest extends BaseTest
             $this->request->withMethod($method);
         } catch (InvalidArgumentException|TypeError $e) {
             // valid
+            $this->assertTrue($e instanceof Throwable);
         } catch (Throwable $e) {
             // invalid
             $this->fail(sprintf(

@@ -54,6 +54,7 @@ abstract class UriIntegrationTest extends BaseTest
             $this->createUri('/')->withScheme($schema);
         } catch (InvalidArgumentException|TypeError $e) {
             // valid
+            $this->assertTrue($e instanceof Throwable);
         } catch (Throwable $e) {
             // invalid
             $this->fail(sprintf(
