@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] - TBD
 
+### Added
+
+- Adds `UriIntegrationTest::testSpecialCharsInUserInfo` and `UriIntegrationTest::testAlreadyEncodedUserInfo`.
+  These validate that usernames and passwords which contain reserved characters (defined by RFC3986) are being encoded
+  so that the URI does not contain these reserved characters at any time.
+
 ## [1.2.0] - 2022-12-01
 
 ### Added
