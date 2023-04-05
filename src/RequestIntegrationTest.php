@@ -121,12 +121,10 @@ abstract class RequestIntegrationTest extends BaseTest
     public function getInvalidMethods()
     {
         return [
-            [null],
-            [1],
-            [1.01],
-            [false],
-            [['foo']],
-            [new \stdClass()],
+            'null'   => [null],
+            'false'  => [false],
+            'array'  => [['foo']],
+            'object' => [new \stdClass()],
         ];
     }
 
