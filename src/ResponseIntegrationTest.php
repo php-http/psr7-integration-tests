@@ -83,11 +83,11 @@ abstract class ResponseIntegrationTest extends BaseTest
     public function getInvalidStatusCodeArguments()
     {
         return [
-            'true'     => [true],
-            'string'   => ['foobar'],
-            'too-low'  => [99],
+            'true' => [true],
+            'string' => ['foobar'],
+            'too-low' => [99],
             'too-high' => [600],
-            'object'   => [new \stdClass()],
+            'object' => [new \stdClass()],
         ];
     }
 
