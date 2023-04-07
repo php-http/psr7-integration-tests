@@ -41,3 +41,7 @@ $foo->doSomething();
 #### To Do
 
 - [ ] If the PR is not complete but you want to discuss the approach, list what remains to be done here
+
+#### Note
+
+The CI runs the integration tests with all implementations. It is normal that not all tests succeed. When adding test cases, please check the output if the new test fails and if so report it to the affected implementations.

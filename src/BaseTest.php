@@ -5,12 +5,18 @@ namespace Http\Psr7Test;
 use GuzzleHttp\Psr7\Stream as GuzzleStream;
 use GuzzleHttp\Psr7\UploadedFile as GuzzleUploadedFile;
 use GuzzleHttp\Psr7\Uri as GuzzleUri;
+use Laminas\Diactoros\StreamFactory as LaminasStreamFactory;
+use Laminas\Diactoros\Uri as LaminasUri;
+use Laminas\Diactoros\UploadedFile as LaminasUploadedFile;
+use Nyholm\Psr7\Factory\Psr17Factory as NyholmFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\UriInterface;
+use RingCentral\Psr7\Uri as RingCentralUri;
+use function RingCentral\Psr7\stream_for as ring_central_stream_for;
 use Slim\Psr7\Uri as SlimUri;
-use Zend\Diactoros\Stream as ZendStream;
-use Zend\Diactoros\Uri as ZendUri;
-use Zend\Diactoros\UploadedFile as ZendUploadedFile;
+use Slim\Psr7\Factory\UriFactory as SlimUriFactory;
+use Slim\Psr7\Factory\StreamFactory as SlimStreamFactory;
+use Slim\Psr7\Factory\UploadedFileFactory as SlimUploadedFileFactory;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -46,11 +52,23 @@ abstract class BaseTest extends TestCase
         }
 
         if (class_exists(SlimUri::class)) {
+            if (class_exists(SlimUriFactory::class)) {
+                return (new SlimUriFactory())->createUri($uri);
+            }
+
             return SlimUri::createFromString($uri);
         }
 
-        if (class_exists(ZendUri::class)) {
-            return new ZendUri($uri);
+        if (class_exists(LaminasUri::class)) {
+            return new LaminasUri($uri);
+        }
+
+        if (class_exists(NyholmFactory::class)) {
+            return (new NyholmFactory())->createUri($uri);
+        }
+
+        if (class_exists(RingCentralUri::class)) {
+            return new RingCentralUri($uri);
         }
 
         throw new \RuntimeException('Could not create URI. Check your config');
@@ -67,9 +85,9 @@ abstract class BaseTest extends TestCase
             if ($factory instanceof \Psr\Http\Message\StreamFactoryInterface) {
                 if (is_string($data)) {
                     return $factory->createStream($data);
-                } else {
-                    return $factory->createStreamFromResource($data);
                 }
+
+                return $factory->createStreamFromResource($data);
             }
 
             throw new \RuntimeException('Constant "STREAM_FACTORY" must be a reference to a Http\Message\StreamFactory or \Psr\Http\Message\StreamFactoryInterface');
@@ -79,8 +97,26 @@ abstract class BaseTest extends TestCase
             return \GuzzleHttp\Psr7\Utils::streamFor($data);
         }
 
-        if (class_exists(ZendStream::class)) {
-            return new ZendStream($data);
+        $factory = null;
+        if (class_exists(LaminasStreamFactory::class)) {
+            $factory = new LaminasStreamFactory();
+        }
+        if (class_exists(NyholmFactory::class)) {
+            $factory = new NyholmFactory();
+        }
+        if (class_exists(SlimStreamFactory::class)) {
+            $factory = new SlimStreamFactory();
+        }
+        if ($factory) {
+            if (is_string($data)) {
+                return $factory->createStream($data);
+            }
+
+            return $factory->createStreamFromResource($data);
+        }
+
+        if (function_exists('ring_central_stream_for')) {
+            return ring_central_stream_for($data);
         }
 
         throw new \RuntimeException('Could not create Stream. Check your config');
@@ -104,8 +140,20 @@ abstract class BaseTest extends TestCase
             return new GuzzleUploadedFile($data, strlen($data), 0);
         }
 
-        if (class_exists(ZendUploadedFile::class)) {
-            return new ZendUploadedFile($data, strlen($data), 0);
+        if (class_exists(LaminasUploadedFile::class)) {
+            return new LaminasUploadedFile($data, strlen($data), 0);
+        }
+
+        if (class_exists(NyholmFactory::class)) {
+            $stream = $this->buildStream($data);
+
+            return (new NyholmFactory())->createUploadedFile($stream);
+        }
+
+        if (class_exists(SlimUploadedFileFactory::class)) {
+            $stream = $this->buildStream($data);
+
+            return (new SlimUploadedFileFactory())->createUploadedFile($stream);
         }
 
         throw new \RuntimeException('Could not create Stream. Check your config');
