@@ -108,7 +108,7 @@ abstract class UploadedFileIntegrationTest extends BaseTest
 
         $file = $this->createSubject();
         $size = $file->getSize();
-        if ($size || 0 === $size) {
+        if (false !== $size) {
             // @TODO remove when package require phpunit 9.1
             if (function_exists('PHPUnit\Framework\assertMatchesRegularExpression')) {
                 $this->assertMatchesRegularExpression('|^[0-9]+$|', (string) $size);
