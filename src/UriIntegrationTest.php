@@ -78,6 +78,9 @@ abstract class UriIntegrationTest extends BaseTest
 
         $uri = $this->createUri('http://user:foo@bar.com/');
         $this->assertEquals('user:foo@bar.com', $uri->getAuthority());
+
+        $uri = $this->createUri('http://bar.com:81/');
+        $this->assertEquals('bar.com:81', $uri->getAuthority());
     }
 
     public function testUserInfo()
@@ -247,6 +250,7 @@ abstract class UriIntegrationTest extends BaseTest
      * the authority, it will not cause URL poisoning and/or XSS issues.
      *
      * @see https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-3257
+     *
      * @psalm-param array{expected: non-empty-string, uri: UriInterface} $test
      */
     public function testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS()
@@ -273,10 +277,35 @@ abstract class UriIntegrationTest extends BaseTest
      * provided when calling getPath()).
      *
      * @depends testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS
+     *
      * @psalm-param array{expected: non-empty-string, uri: UriInterface} $test
      */
     public function testStringRepresentationWithMultipleSlashes(array $test)
     {
         $this->assertSame($test['expected'], (string) $test['uri']);
+    }
+
+    /**
+     * Tests that special chars in `userInfo` must always be URL-encoded to pass RFC3986 compliant URIs where characters
+     * in username and password MUST NOT contain reserved characters.
+     *
+     * This test is taken from {@see https://github.com/guzzle/psr7/blob/3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf/tests/UriTest.php#L679-L688 guzzlehttp/psr7}.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc3986#appendix-A
+     */
+    public function testSpecialCharsInUserInfo(): void
+    {
+        $uri = $this->createUri('/')->withUserInfo('foo@bar.com', 'pass#word');
+        self::assertSame('foo%40bar.com:pass%23word', $uri->getUserInfo());
+    }
+
+    /**
+     * Tests that userinfo which is already encoded is not encoded twice.
+     * This test is taken from {@see https://github.com/guzzle/psr7/blob/3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf/tests/UriTest.php#L679-L688 guzzlehttp/psr7}.
+     */
+    public function testAlreadyEncodedUserInfo(): void
+    {
+        $uri = $this->createUri('/')->withUserInfo('foo%40bar.com', 'pass%23word');
+        self::assertSame('foo%40bar.com:pass%23word', $uri->getUserInfo());
     }
 }
