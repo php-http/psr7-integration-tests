@@ -17,6 +17,7 @@ use Slim\Psr7\Uri as SlimUri;
 use Slim\Psr7\Factory\UriFactory as SlimUriFactory;
 use Slim\Psr7\Factory\StreamFactory as SlimStreamFactory;
 use Slim\Psr7\Factory\UploadedFileFactory as SlimUploadedFileFactory;
+
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
