@@ -2,7 +2,11 @@
 
 namespace Http\Psr7Test;
 
+use InvalidArgumentException;
+use PHPUnit\Framework\AssertionFailedError;
 use Psr\Http\Message\MessageInterface;
+use Throwable;
+use TypeError;
 
 /**
  * Test MessageInterface.
@@ -136,9 +140,24 @@ trait MessageTrait
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
-        $this->expectException(\InvalidArgumentException::class);
-        $initialMessage = $this->getMessage();
-        $initialMessage->withHeader($name, $value);
+
+        try {
+            $initialMessage = $this->getMessage();
+            $initialMessage->withHeader($name, $value);
+            $this->fail('withHeader() should have raised exception on invalid argument');
+        } catch (AssertionFailedError $e) {
+            // invalid argument not caught
+            throw $e;
+        } catch (TypeError|InvalidArgumentException $e) {
+            // valid
+            $this->assertTrue($e instanceof Throwable);
+        } catch (Throwable $e) {
+            // invalid
+            $this->fail(sprintf(
+                'Unexpected exception (%s) thrown from withHeader(); expected TypeError or InvalidArgumentException',
+                gettype($e)
+            ));
+        }
     }
 
     public function getInvalidHeaderArguments()
@@ -174,9 +193,24 @@ trait MessageTrait
         if (isset($this->skippedTests[__FUNCTION__])) {
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
-        $this->expectException(\InvalidArgumentException::class);
-        $initialMessage = $this->getMessage();
-        $initialMessage->withAddedHeader($name, $value);
+
+        try {
+            $initialMessage = $this->getMessage();
+            $initialMessage->withAddedHeader($name, $value);
+            $this->fail('withAddedHeader() should have raised exception on invalid argument');
+        } catch (AssertionFailedError $e) {
+            // invalid argument not caught
+            throw $e;
+        } catch (TypeError|InvalidArgumentException $e) {
+            // valid
+            $this->assertTrue($e instanceof Throwable);
+        } catch (Throwable $e) {
+            // invalid
+            $this->fail(sprintf(
+                'Unexpected exception (%s) thrown from withAddedHeader(); expected TypeError or InvalidArgumentException',
+                gettype($e)
+            ));
+        }
     }
 
     /**

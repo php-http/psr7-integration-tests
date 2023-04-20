@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   These validate that usernames and passwords which contain reserved characters (defined by RFC3986) are being encoded
   so that the URI does not contain these reserved characters at any time.
 
+- Adds support for testing against PSR-7 1.1 and 2.0. In particular, it adapts tests that were verifying invalid parameters threw `InvalidArgumentException` previously now either throw that OR (more correctly) raise a `TypeError`.
+
 ## [1.2.0] - 2022-12-01
 
 ### Added
