@@ -3,7 +3,7 @@ name: Laminas
 on:
   push:
     branches:
-      - master
+      - '*.x'
   pull_request:
 
 jobs:
