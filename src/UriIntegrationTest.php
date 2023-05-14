@@ -2,7 +2,11 @@
 
 namespace Http\Psr7Test;
 
+use InvalidArgumentException;
+use PHPUnit\Framework\AssertionFailedError;
 use Psr\Http\Message\UriInterface;
+use Throwable;
+use TypeError;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -47,8 +51,22 @@ abstract class UriIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->createUri('/')->withScheme($schema);
+        try {
+            $this->createUri('/')->withScheme($schema);
+            $this->fail('withScheme() should have raised exception on invalid argument');
+        } catch (AssertionFailedError $e) {
+            // invalid argument not caught
+            throw $e;
+        } catch (InvalidArgumentException|TypeError $e) {
+            // valid
+            $this->assertTrue($e instanceof Throwable);
+        } catch (Throwable $e) {
+            // invalid
+            $this->fail(sprintf(
+                'Unexpected exception (%s) thrown from withScheme(); expected TypeError or InvalidArgumentException',
+                gettype($e)
+            ));
+        }
     }
 
     public static function getInvalidSchemaArguments()

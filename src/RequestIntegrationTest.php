@@ -2,8 +2,12 @@
 
 namespace Http\Psr7Test;
 
+use InvalidArgumentException;
+use PHPUnit\Framework\AssertionFailedError;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
+use Throwable;
+use TypeError;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -96,19 +100,31 @@ abstract class RequestIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->request->withMethod($method);
+        try {
+            $this->request->withMethod($method);
+            $this->fail('withMethod() should have raised exception on invalid argument');
+        } catch (AssertionFailedError $e) {
+            // invalid argument not caught
+            throw $e;
+        } catch (InvalidArgumentException|TypeError $e) {
+            // valid
+            $this->assertTrue($e instanceof Throwable);
+        } catch (Throwable $e) {
+            // invalid
+            $this->fail(sprintf(
+                'Unexpected exception (%s) thrown from withMethod(); expected TypeError or InvalidArgumentException',
+                gettype($e)
+            ));
+        }
     }
 
     public static function getInvalidMethods()
     {
         return [
-            [null],
-            [1],
-            [1.01],
-            [false],
-            [['foo']],
-            [new \stdClass()],
+            'null' => [null],
+            'false' => [false],
+            'array' => [['foo']],
+            'object' => [new \stdClass()],
         ];
     }
 

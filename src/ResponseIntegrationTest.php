@@ -2,7 +2,11 @@
 
 namespace Http\Psr7Test;
 
+use InvalidArgumentException;
+use PHPUnit\Framework\AssertionFailedError;
 use Psr\Http\Message\ResponseInterface;
+use Throwable;
+use TypeError;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -58,19 +62,32 @@ abstract class ResponseIntegrationTest extends BaseTest
             $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
         }
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->response->withStatus($statusCode);
+        try {
+            $this->response->withStatus($statusCode);
+            $this->fail('withStatus() should have raised exception on invalid argument');
+        } catch (AssertionFailedError $e) {
+            // invalid argument not caught
+            throw $e;
+        } catch (InvalidArgumentException|TypeError $e) {
+            // valid
+            $this->assertTrue($e instanceof Throwable);
+        } catch (Throwable $e) {
+            // invalid
+            $this->fail(sprintf(
+                'Unexpected exception (%s) thrown from withStatus(); expected TypeError or InvalidArgumentException',
+                gettype($e)
+            ));
+        }
     }
 
     public static function getInvalidStatusCodeArguments()
     {
         return [
-            [true],
-            ['foobar'],
-            [99],
-            [600],
-            [200.34],
-            [new \stdClass()],
+            'true' => [true],
+            'string' => ['foobar'],
+            'too-low' => [99],
+            'too-high' => [600],
+            'object' => [new \stdClass()],
         ];
     }
 

@@ -44,4 +44,4 @@ $foo->doSomething();
 
 #### Note
 
-The CI runs the integration tests with all implementations. It is normal that not all tests succeed. When adding test cases, please check the output if the new test fails and if so report it to the affected implementations.
+The CI runs the integration tests with all implementations. It is expected that not all tests succeed and does not prevent merging a pull request. When adding test cases, please check the output if the new test fails and if so report it to the affected implementations.

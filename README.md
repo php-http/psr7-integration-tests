@@ -6,10 +6,10 @@
 
 ## Status
 
-| PSR7 Implementation | Status        |
-| ------------------- |:-------------:|
+| PSR7 Implementation | Status        | Legacy |
+| ------------------- |:-------------:|:------:|
 | Guzzle              | [![Guzzle](https://github.com/php-http/psr7-integration-tests/actions/workflows/guzzle.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/guzzle.yml)                |
-| Laminas             | [![Laminas](https://github.com/php-http/psr7-integration-tests/actions/workflows/laminas.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/laminas.yml)             |
+| Laminas             | [![Laminas](https://github.com/php-http/psr7-integration-tests/actions/workflows/laminas.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/laminas.yml)             |  [Legacy](https://github.com/php-http/psr7-integration-tests/actions/workflows/laminas-legacy.yml) (failures expected) |
 | Slim                | [![Slim](https://github.com/php-http/psr7-integration-tests/actions/workflows/slim.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/slim.yml)                      |
 | Nyholm              | [![Nyholm](https://github.com/php-http/psr7-integration-tests/actions/workflows/nyholm.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/nyholm.yml)                |
 | RingCentral         | [![RingCentral](https://github.com/php-http/psr7-integration-tests/actions/workflows/ringcentral.yml/badge.svg)](https://github.com/php-http/psr7-integration-tests/actions/workflows/ringcentral.yml) |

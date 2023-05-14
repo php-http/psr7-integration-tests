@@ -5,13 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.3.0] - TBD
+## [1.3.0] - 2023-04-28
 
 ### Added
 
 - Adds `UriIntegrationTest::testSpecialCharsInUserInfo` and `UriIntegrationTest::testAlreadyEncodedUserInfo`.
   These validate that usernames and passwords which contain reserved characters (defined by RFC3986) are being encoded
   so that the URI does not contain these reserved characters at any time.
+
+- Adds support for testing against PSR-7 1.1 and 2.0. In particular, it adapts tests that were verifying invalid parameters threw `InvalidArgumentException` previously now either throw that OR (more correctly) raise a `TypeError`.
 
 ## [1.2.0] - 2022-12-01
 
