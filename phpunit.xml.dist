@@ -30,6 +30,10 @@
     <testsuite name="Nyholm">
         <directory>./vendor/nyholm/psr7/tests/Integration/</directory>
     </testsuite>
+
+    <testsuite name="HttpSoft">
+        <directory>./tests/HttpSoft/</directory>
+    </testsuite>
   </testsuites>
 
   <filter>
