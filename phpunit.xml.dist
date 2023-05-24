@@ -32,7 +32,7 @@
     </testsuite>
 
     <testsuite name="HttpSoft">
-        <directory>./tests/HttpSoft/</directory>
+        <directory>./vendor/httpsoft/http-message/tests/Integration/</directory>
     </testsuite>
   </testsuites>
 

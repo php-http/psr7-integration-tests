@@ -5,6 +5,7 @@ namespace Http\Psr7Test;
 use GuzzleHttp\Psr7\Stream as GuzzleStream;
 use GuzzleHttp\Psr7\UploadedFile as GuzzleUploadedFile;
 use GuzzleHttp\Psr7\Uri as GuzzleUri;
+use HttpSoft\Message\Uri as HttpSoftUri;
 use Laminas\Diactoros\StreamFactory as LaminasStreamFactory;
 use Laminas\Diactoros\Uri as LaminasUri;
 use Laminas\Diactoros\UploadedFile as LaminasUploadedFile;
@@ -45,6 +46,10 @@ abstract class BaseTest extends TestCase
             }
 
             throw new \RuntimeException('Constant "URI_FACTORY" must be a reference to a Http\Message\UriFactory or \Psr\Http\Message\UriFactoryInterface');
+        }
+
+        if (class_exists(HttpSoftUri::class)) {
+            return new HttpSoftUri($uri);
         }
 
         if (class_exists(GuzzleUri::class)) {
