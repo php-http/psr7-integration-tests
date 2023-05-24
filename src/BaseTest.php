@@ -33,11 +33,11 @@ abstract class BaseTest extends TestCase
         if (defined('URI_FACTORY')) {
             $factoryClass = URI_FACTORY;
             $factory = new $factoryClass();
-            if ($factory instanceof PsrUriFactory) {
+            if ($factory instanceof \Http\Message\UriFactory) {
                 return $factory->createUri($uri);
             }
-            if ($factory instanceof PsrUriFactoryInterface) {
-                if ($uri instanceof PsrUriInterface) {
+            if ($factory instanceof \Psr\Http\Message\UriFactoryInterface) {
+                if ($uri instanceof \Psr\Http\Message\UriInterface) {
                     return $uri;
                 }
 
@@ -79,10 +79,10 @@ abstract class BaseTest extends TestCase
         if (defined('STREAM_FACTORY')) {
             $factoryClass = STREAM_FACTORY;
             $factory = new $factoryClass();
-            if ($factory instanceof HttpPlugStreamFactory) {
+            if ($factory instanceof \Http\Message\StreamFactory) {
                 return $factory->createStream($data);
             }
-            if ($factory instanceof PsrStreamFactoryInterface) {
+            if ($factory instanceof \Psr\Http\Message\StreamFactoryInterface) {
                 if (is_string($data)) {
                     return $factory->createStream($data);
                 }
@@ -127,7 +127,7 @@ abstract class BaseTest extends TestCase
         if (defined('UPLOADED_FILE_FACTORY')) {
             $factoryClass = UPLOADED_FILE_FACTORY;
             $factory = new $factoryClass();
-            if (!$factory instanceof PsrUploadedFileFactoryInterface) {
+            if (!$factory instanceof \Psr\Http\Message\UploadedFileFactoryInterface) {
                 throw new \RuntimeException('Constant "UPLOADED_FILE_FACTORY" must be a reference to a Psr\Http\Message\UploadedFileFactoryInterface');
             }
 
