@@ -20,6 +20,7 @@
     },
     "require-dev": {
         "guzzlehttp/psr7": "^1.7 || ^2.0",
+        "httpsoft/http-message": "^1.1",
         "laminas/laminas-diactoros": "^2.1",
         "nyholm/psr7": "^1.0",
         "ringcentral/psr7": "^1.2",
