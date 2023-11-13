@@ -301,4 +301,21 @@ abstract class StreamIntegrationTest extends BaseTest
         $this->assertEquals('def', $stream->getContents());
         $this->assertSame('', $stream->getContents());
     }
+
+    public function testGetContentsError()
+    {
+        if (isset($this->skippedTests[__FUNCTION__])) {
+            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
+        }
+
+        $resource = fopen('php://memory', 'rw');
+        fwrite($resource, 'abcdef');
+        rewind($resource);
+        $stream = $this->createStream($resource);
+
+        fclose($resource);
+
+        $this->expectException(\RuntimeException::class);
+        $stream->getContents();
+    }
 }
