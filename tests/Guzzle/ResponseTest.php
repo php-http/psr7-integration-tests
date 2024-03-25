@@ -12,7 +12,7 @@ class ResponseTest extends ResponseIntegrationTest
         return new Response();
     }
 
-    public function getInvalidHeaderArguments()
+    public static function getInvalidHeaderArguments()
     {
         $testCases = parent::getInvalidHeaderArguments();
 

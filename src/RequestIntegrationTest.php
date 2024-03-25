@@ -118,7 +118,7 @@ abstract class RequestIntegrationTest extends BaseTest
         }
     }
 
-    public function getInvalidMethods()
+    public static function getInvalidMethods()
     {
         return [
             'null' => [null],
