@@ -4,6 +4,8 @@ namespace Http\Psr7Test;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Depends;
 use Psr\Http\Message\UriInterface;
 use Throwable;
 use TypeError;
@@ -45,6 +47,7 @@ abstract class UriIntegrationTest extends BaseTest
     /**
      * @dataProvider getInvalidSchemaArguments
      */
+    #[DataProvider('getInvalidSchemaArguments')]
     public function testWithSchemeInvalidArguments($schema)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -155,6 +158,7 @@ abstract class UriIntegrationTest extends BaseTest
     /**
      * @dataProvider getPaths
      */
+    #[DataProvider('getPaths')]
     public function testPath(UriInterface $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -181,6 +185,7 @@ abstract class UriIntegrationTest extends BaseTest
     /**
      * @dataProvider getQueries
      */
+    #[DataProvider('getQueries')]
     public function testQuery(UriInterface $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -206,6 +211,7 @@ abstract class UriIntegrationTest extends BaseTest
     /**
      * @dataProvider getFragments
      */
+    #[DataProvider('getFragments')]
     public function testFragment(UriInterface $uri, string $expected)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -304,6 +310,7 @@ abstract class UriIntegrationTest extends BaseTest
      *
      * @psalm-param array{expected: non-empty-string, uri: UriInterface} $test
      */
+    #[Depends('testGetPathNormalizesMultipleLeadingSlashesToSingleSlashToPreventXSS')]
     public function testStringRepresentationWithMultipleSlashes(array $test)
     {
         $this->assertSame($test['expected'], (string) $test['uri']);

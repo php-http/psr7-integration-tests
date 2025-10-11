@@ -4,6 +4,7 @@ namespace Http\Psr7Test;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 use Throwable;
@@ -94,6 +95,7 @@ abstract class RequestIntegrationTest extends BaseTest
     /**
      * @dataProvider getInvalidMethods
      */
+    #[DataProvider('getInvalidMethods')]
     public function testMethodWithInvalidArguments($method)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {

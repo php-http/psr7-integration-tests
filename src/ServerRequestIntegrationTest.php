@@ -2,6 +2,7 @@
 
 namespace Http\Psr7Test;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -88,6 +89,7 @@ abstract class ServerRequestIntegrationTest extends RequestIntegrationTest
     /**
      * @dataProvider validParsedBodyParams
      */
+    #[DataProvider('validParsedBodyParams')]
     public function testGetParsedBody($value)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -111,6 +113,7 @@ abstract class ServerRequestIntegrationTest extends RequestIntegrationTest
     /**
      * @dataProvider invalidParsedBodyParams
      */
+    #[DataProvider('invalidParsedBodyParams')]
     public function testGetParsedBodyInvalid($value)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
