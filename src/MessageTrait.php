@@ -4,6 +4,7 @@ namespace Http\Psr7Test;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Http\Message\MessageInterface;
 use Throwable;
 use TypeError;
@@ -135,6 +136,7 @@ trait MessageTrait
     /**
      * @dataProvider getInvalidHeaderArguments
      */
+    #[DataProvider('getInvalidHeaderArguments')]
     public function testWithHeaderInvalidArguments($name, $value)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
@@ -188,6 +190,7 @@ trait MessageTrait
     /**
      * @dataProvider getInvalidHeaderArguments
      */
+    #[DataProvider('getInvalidHeaderArguments')]
     public function testWithAddedHeaderInvalidArguments($name, $value)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {

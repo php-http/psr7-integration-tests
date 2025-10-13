@@ -4,6 +4,7 @@ namespace Http\Psr7Test;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\AssertionFailedError;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use TypeError;
@@ -56,6 +57,7 @@ abstract class ResponseIntegrationTest extends BaseTest
     /**
      * @dataProvider getInvalidStatusCodeArguments
      */
+    #[DataProvider('getInvalidStatusCodeArguments')]
     public function testStatusCodeInvalidArgument($statusCode)
     {
         if (isset($this->skippedTests[__FUNCTION__])) {
