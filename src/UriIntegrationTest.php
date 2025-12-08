@@ -326,7 +326,7 @@ abstract class UriIntegrationTest extends BaseTest
      */
     public function testSpecialCharsInUserInfo(): void
     {
-        $uri = $this->createUri('/')->withUserInfo('foo@bar.com', 'pass#word');
+        $uri = $this->createUri('http://example.com')->withUserInfo('foo@bar.com', 'pass#word');
         self::assertSame('foo%40bar.com:pass%23word', $uri->getUserInfo());
     }
 
@@ -336,7 +336,7 @@ abstract class UriIntegrationTest extends BaseTest
      */
     public function testAlreadyEncodedUserInfo(): void
     {
-        $uri = $this->createUri('/')->withUserInfo('foo%40bar.com', 'pass%23word');
+        $uri = $this->createUri('http://example.com')->withUserInfo('foo%40bar.com', 'pass%23word');
         self::assertSame('foo%40bar.com:pass%23word', $uri->getUserInfo());
     }
 }
